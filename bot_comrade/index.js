@@ -6,8 +6,8 @@ const fs = require('fs');
 
 bot_historian = '712353092112482386';
 
-ch_court = '713990723602743357';  // sandbox
-// ch_court = '711750664404861059'  // the party
+// ch_court = '713990723602743357';  // sandbox
+ch_court = '711750664404861059'  // the party
 
 wrongthink = utils.getLines("global lists/wrongthink.txt");
 musings = utils.getLines("bot_comrade/lists/musings.txt");
