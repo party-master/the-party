@@ -4,15 +4,7 @@ const config = require('./config.json')
 const utils = require('../utils/functions.js')
 const fs = require('fs');
 
-testing = false;
-if (testing){
-  // sandbox channels
-  ch_court = '713990723602743357';
-}
-else{
-  // party channels
-  ch_court = '711750664404861059';
-}
+ch_court = '711750664404861059';
 
 wrongthink = utils.getLines("global lists/wrongthink.txt");
 
