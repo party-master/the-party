@@ -4,8 +4,15 @@ const config = require('./config.json')
 const utils = require('../utils/functions.js')
 const fs = require('fs');
 
-// ch_court = '713990723602743357';  // sandbox
-ch_court = '711750664404861059'  // the party
+testing = true;
+if (testing){
+  // sandbox channels
+  ch_court = '713990723602743357';
+}
+else{
+  // party channels
+  ch_court = '711750664404861059';
+}
 
 wrongthink = utils.getLines("global lists/wrongthink.txt");
 
@@ -15,7 +22,7 @@ client.on('ready', () => {
 
 client.on('message', (message) => {
   if (message.author.bot == false){
-    if (utils.catchWrongthink(message)['crime']){
+    if (utils.getReport(message)['crime']){
       if (message.channel.type != 'dm'){
         message.delete();
       }
