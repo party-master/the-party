@@ -4,7 +4,7 @@ const config = require('./config.json')
 const utils = require('../utils/functions.js')
 const fs = require('fs');
 
-testing = true;
+testing = false;
 if (testing){
   // sandbox channels
   ch_court = '713990723602743357';
