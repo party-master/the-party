@@ -6,7 +6,7 @@ const fs = require('fs');
 
 ch_court = '711750664404861059';
 
-wrongthink = utils.getLines("global lists/wrongthink.txt");
+wrongthink = utils.getLines("global lists/+wrongthink.txt");
 musings = utils.getLines("bot_comrade/lists/musings.txt");
 warnings = utils.getLines("bot_comrade/lists/warnings.txt");
 affirmations = utils.shuffle(utils.getLines("bot_comrade/lists/affirmations.txt"));
@@ -35,15 +35,10 @@ client.on('message', (message) => {
       }
       else{
         ch = client.channels.cache.get(ch_court);
-        if (message.content.toString().length < 50){
-          ch.send(message.author.toString() + " said to me \"" + message.content + "\" !");
-        }
-        else{
-          ch.send(message.author.toString() + " said to me \"" + line + "\" !");
-        }
+        ch.send(message.author.toString() + " said to me \"" + line + "\" !");
       }      
     }
-    else if (report['goodthink'] || report['goodthink_dp']){
+    else if (report['goodthink']){
       ch = client.channels.cache.get(message.channel.id);
       setTimeout(() => { ch.send(utils.randItem(affirmations)); }, utils.randInteger(250, 2500));
     }
