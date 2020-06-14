@@ -48,8 +48,9 @@ function searchForLine(message, list){
 }
 
 function getReport(message){
+    var line;
     msg = message.content.toLowerCase();
-    report = {
+    var report = {
         goodthink: false,
         crime: false,
         line: null
