@@ -2,14 +2,13 @@ const Discord = require('../node_modules/discord.js');
 const client = new Discord.Client();
 const config = require('./config.json')
 const utils = require('../utils/functions.js')
-const fs = require('fs');
 
 ch_court = '711750664404861059';
 
 wrongthink = utils.getLines("global lists/+wrongthink.txt");
 musings = utils.getLines("bot_comrade/lists/musings.txt");
 warnings = utils.getLines("bot_comrade/lists/warnings.txt");
-affirmations = utils.shuffle(utils.getLines("bot_comrade/lists/affirmations.txt"));
+affirmations = utils.getLines("bot_comrade/lists/affirmations.txt");
 
 chance_respond = 0.35;
 chance_warn = 0.2;

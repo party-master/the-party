@@ -2,7 +2,6 @@ const Discord = require('../node_modules/discord.js');
 const client = new Discord.Client();
 const config = require('./config.json')
 const utils = require('../utils/functions.js')
-const fs = require('fs');
 
 ch_court = '711750664404861059';
 
