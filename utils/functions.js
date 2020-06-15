@@ -41,10 +41,8 @@ function searchForLine(message, list){
         if (msg.includes(line)){
             return line;
         }
-        else{
-            return false;
-        }
     }
+    return false;
 }
 
 function getReport(message){
