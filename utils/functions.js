@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-const { report } = require("process");
 
-// ch_court = '713990723602743357';  // sandbox
 ch_court = '711750664404861059'  // the party
 
 goodthink = shuffle(getLines("global lists/+goodthink.txt"));
@@ -35,6 +33,7 @@ function shuffle(a) {
 }
 
 function searchForLine(message, list){
+    var line;
     msg = message.content.toLowerCase();
     for (i = 0; i < list.length; i++){
         line = list[i];
@@ -46,14 +45,12 @@ function searchForLine(message, list){
 }
 
 function getReport(message){
-    var line;
-    msg = message.content.toLowerCase();
     var report = {
         goodthink: false,
         crime: false,
         line: null
     };
-    line = searchForLine(message, wrongthink_doubleplus);
+    var line = searchForLine(message, wrongthink_doubleplus);
     if (line){
         report['crime'] = 'terrorism';
         report['line'] = line;

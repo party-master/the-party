@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const config = require('./config.json')
 const utils = require('../utils/functions.js')
 
-ch_court = '711750664404861059';
+ch_court = '711750664404861059';  // the party
 
 wrongthink = utils.getLines("global lists/+wrongthink.txt");
 
