@@ -32,7 +32,7 @@ function shuffle(a) {
 
 function searchForLine(message, list){
     var line;
-    msg = message.content.toLowerCase();
+    var msg = message.content.toLowerCase();
     for (i = 0; i < list.length; i++){
         line = list[i];
         if (msg.includes(line)){
