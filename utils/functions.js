@@ -1,13 +1,11 @@
 const Discord = require("discord.js");
 const fs = require('fs');
 
-ch_court = '711750664404861059'  // the party
-
-goodthink = shuffle(getLines("global lists/+goodthink.txt"));
-goodthink_doubleplus = shuffle(getLines("global lists/++goodthink.txt"));
-wrongthink = shuffle(getLines("global lists/+wrongthink.txt"));
-wrongthink_doubleplus = shuffle(getLines("global lists/++wrongthink.txt"));
-negatives = shuffle(getLines("global lists/negatives.txt"));
+var goodthink = shuffle(getLines("global lists/+goodthink.txt"));
+var goodthink_doubleplus = shuffle(getLines("global lists/++goodthink.txt"));
+var wrongthink = shuffle(getLines("global lists/+wrongthink.txt"));
+var wrongthink_doubleplus = shuffle(getLines("global lists/++wrongthink.txt"));
+var negatives = shuffle(getLines("global lists/negatives.txt"));
 
 function getLines(path){
     return fs.readFileSync("../" + path, 'utf8').toString().split(/\r?\n/);
