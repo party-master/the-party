@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 const fs = require('fs');
 
 var goodthink = shuffle(getLines("global lists/+goodthink.txt"));
