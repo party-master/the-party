@@ -18,7 +18,6 @@ client.on('ready', () => {
 });
 
 client.on('message', (message) => {
-  msg = message.content.toLowerCase();
   if (message.author.bot == false){
     report = utils.getReport(message);
     if (report['crime']){
