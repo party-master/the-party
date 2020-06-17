@@ -10,8 +10,8 @@ function getLines(path){
     return fs.readFileSync("../" + path, 'utf8').toString().split(/\r?\n/);
 }
 
-function randItem(list){
-    return list[Math.floor(Math.random()*list.length)];
+function randItem(a){
+    return a[Math.floor(Math.random()*a.length)];
 }
 
 function randInteger(min, max) {
@@ -30,24 +30,23 @@ function shuffle(a) {
 }
 
 function searchForLine(message, list){
-    var line;
     var msg = message.content.toLowerCase();
     for (i = 0; i < list.length; i++){
-        line = list[i];
-        if (msg.includes(line)){
-            return line;
+        if (msg.includes(list[i])){
+            return list[i];
         }
     }
     return false;
 }
 
 function getReport(message){
+    var line;
     var report = {
         goodthink: false,
         crime: false,
         line: null
     };
-    var line = searchForLine(message, wrongthink_doubleplus);
+    line = searchForLine(message, wrongthink_doubleplus);
     if (line){
         report['crime'] = 'terrorism';
         report['line'] = line;
@@ -80,11 +79,11 @@ module.exports = {
 
     getReport(message){ return getReport(message) },
 
-    randItem(list){ return randItem(list); },
+    randItem(a){ return randItem(a); },
 
     getLines(path){ return getLines(path); },
 
-    shuffle(arr){ return shuffle(arr); },
+    shuffle(a){ return shuffle(a); },
 
     randInteger(min, max) { return randInteger(min, max); }
 
