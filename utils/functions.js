@@ -1,10 +1,10 @@
 const fs = require('fs');
 
-var goodthink = shuffle(getLines("global lists/+goodthink.txt"));
-var goodthink_doubleplus = shuffle(getLines("global lists/++goodthink.txt"));
-var wrongthink = shuffle(getLines("global lists/+wrongthink.txt"));
-var wrongthink_doubleplus = shuffle(getLines("global lists/++wrongthink.txt"));
-var negatives = shuffle(getLines("global lists/negatives.txt"));
+var goodthink = getLines("global lists/+goodthink.txt");
+var goodthink_doubleplus = getLines("global lists/++goodthink.txt");
+var wrongthink = getLines("global lists/+wrongthink.txt");
+var wrongthink_doubleplus = getLines("global lists/++wrongthink.txt");
+var negatives = getLines("global lists/negatives.txt");
 
 function getLines(path){
     return fs.readFileSync("../" + path, 'utf8').toString().split(/\r?\n/);
@@ -30,6 +30,7 @@ function shuffle(a) {
 }
 
 function searchForLine(message, list){
+    list = shuffle(list);
     var msg = message.content.toLowerCase();
     for (i = 0; i < list.length; i++){
         if (msg.includes(list[i])){
@@ -43,6 +44,7 @@ function getReport(message){
     var line;
     var report = {
         goodthink: false,
+        negative: false,
         crime: false,
         line: null
     };
