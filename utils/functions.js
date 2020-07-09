@@ -11,11 +11,11 @@ function getLines(path){
 }
 
 function randItem(a){
-    return a[Math.floor(Math.random()*a.length)];
+    return a[Math.floor(Math.random() * a.length)];
 }
 
 function randInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function shuffle(a) {
@@ -44,9 +44,8 @@ function getReport(message){
     var line;
     var report = {
         goodthink: false,
-        negative: false,
         crime: false,
-        line: null
+        line: false
     };
     line = searchForLine(message, wrongthink_doubleplus);
     if (line){
@@ -64,14 +63,15 @@ function getReport(message){
     if (line){
         return report;
     }
-    line = searchForLine(message, goodthink);
-    if (line){
-        report['goodthink'] = true;
-        report['line'] = line;
-    }
     line = searchForLine(message, goodthink_doubleplus);
     if (line){
-        report['goodthink'] = true;
+        report['goodthink'] = 'goodthink_doubleplus';
+        report['line'] = line;
+        return report;
+    }
+    line = searchForLine(message, goodthink);
+    if (line){
+        report['goodthink'] = 'goodthink';
         report['line'] = line;
     }
     return report;
@@ -79,14 +79,16 @@ function getReport(message){
 
 module.exports = {
 
-    getReport(message){ return getReport(message) },
+    randInteger(min, max){ return randInteger(min, max); },
 
     randItem(a){ return randItem(a); },
 
-    getLines(path){ return getLines(path); },
-
     shuffle(a){ return shuffle(a); },
 
-    randInteger(min, max) { return randInteger(min, max); }
+    getLines(path){ return getLines(path); },
+
+    searchForLine(message, list){ return searchForLine(message, list); },
+
+    getReport(message){ return getReport(message) },
 
 }
