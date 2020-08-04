@@ -5,4 +5,6 @@ cant
 isnt
 wont
 never
-not
+not 
+no 
+hate
