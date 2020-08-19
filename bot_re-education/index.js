@@ -20,22 +20,11 @@ client.on('message', message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const cmd = args.shift().toLowerCase();
 
-    if (cmd === `server-info`) {
-        client.commands.get('!server-info').execute(message, args);
-
-    } else if (cmd === `user-info`) {
-        client.commands.get('!user-info').execute(message, args);
-
-    } else if (cmd === 'help') {
-        client.commands.get('!help').execute(message, args);
-
-    } else if (cmd === 'args-info') {
-        client.commands.get('!args-info').execute(message, args);
-        
-    } else if (cmd === 'wz-stats') {
-        client.commands.get('!wz-stats').execute(message, args);
+    if (cmd === `help`) {
+        if (message.mentions.has(client.user.id)) {
+            client.commands.get('!help').execute(message, args);
+        }
     }
 });
 
 client.login(token);
-
