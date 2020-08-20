@@ -27,6 +27,6 @@ client.on('message', message => {
     }
 });
 
-// Github Line
+// Local Line
 
 client.login(token);
