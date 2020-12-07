@@ -5,16 +5,14 @@ bot_our-bot/config.json
 bot_re-education/config.json
 
 # wip
-bot_our-bot/
+bot_re-education/
+bot_tester/
 
 # Resources
 res/
 
 # Guild specific
 guilds/
-
-# hold for merge
-_hold/
 
 # Logs
 logs
