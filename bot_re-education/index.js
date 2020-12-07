@@ -6,7 +6,6 @@ const client = new Discord.Client();
 const config = require(path_root + '/bot_re-education/config.json');
 const utils = require(path_root + '/utils/functions.js');
 const fs = require('fs');
-const schedule = require('node-schedule');
 
 const img_party = 'https://i.imgur.com/GRSG1Em.png';
 const CMD_PREFIX = "!"
