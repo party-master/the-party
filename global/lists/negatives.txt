@@ -15,3 +15,6 @@ noo
 hate
 zero
 negative
+untrue
+false
+lie
