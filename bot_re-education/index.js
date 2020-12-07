@@ -26,6 +26,3 @@ client.on('message', async message => {
 })
 
 client.login(config.token);
-
-// 745787998691393546
-// 765642055165804546
