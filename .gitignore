@@ -4,6 +4,9 @@ bot_historian/config.json
 bot_our-bot/config.json
 bot_re-education/config.json
 
+# index.js (brings online multiple bots)
+index.js
+
 # wip
 bot_re-education/
 bot_tester/
