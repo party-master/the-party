@@ -135,40 +135,8 @@ class Vote {
             }
         }
         else if (this.vote_type == 'addcrime' || this.vote_type == 'removecrime') {
-            /* multi-word crimes  // still needed: !judge handling of multi-word crimes
-            const time_units = ['secs', 'mins', 'hours', 'days', 'weeks', 'months', 'years'];
-            let crime = "";
-            let trigger = false;
-            for (let cmd of cmdArgs.slice(1, cmdArgs.length)) {
-                for (let unit of time_units) {
-                    if (cmd.startsWith(unit)) { trigger = true; break; }
-                }
-                if (trigger) { break; }
-                if (crime != "") { crime += " "; }
-                crime += cmd.toLowerCase();
-            }
-            */
-
-            if (this.channel_id == 712184607860326400) {
-                const time_units = ['secs', 'mins', 'hours', 'days', 'weeks', 'months', 'years'];
-                let crime = "";
-                let trigger = false;
-                for (let cmd of cmdArgs.slice(1, cmdArgs.length)) {
-                    for (let unit of time_units) {
-                        if (cmd.startsWith(unit)) { trigger = true; break; }
-                    }
-                    if (trigger) { break; }
-                    if (crime != "") { crime += " "; }
-                    crime += cmd.toLowerCase();
-                }
-                this.details = {
-                    crime: crime
-                }
-            }
-            else {
-                this.details = {
-                    crime: cmdArgs[1]
-                }
+            this.details = {
+                crime: cmdArgs[1]
             }
         }
 
@@ -750,16 +718,6 @@ function crimes(message, cmdArgs) {
         return;
     }
     else if (cmdArgs.length > 1 && (cmdArgs[0] == "add" || cmdArgs[0] == "remove")) {
-        /*
-        let crime_name = "";
-        for (let arg of cmdArgs) {
-            if (arg === cmdArgs[0]) { continue; }
-            else if (arg == cmdArgs[1]) { crime_name += utils.upper(arg); }
-            else { crime_name += " " + utils.upper(arg); }
-        }
-        */
-
-        // this can move to on.message
         let vote = new Vote();
 
         if (cmdArgs[0] == "add") { vote.open('addcrime', message, cmdArgs); }
