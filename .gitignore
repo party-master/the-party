@@ -4,7 +4,7 @@ bot_historian/config.json
 bot_our-bot/config.json
 bot_re-education/config.json
 
-# index.js (brings online multiple bots)
+# index.js (to bring online multiple bots)
 index.js
 
 # wip
@@ -16,6 +16,9 @@ res/
 
 # Guild specific
 guilds/
+
+# Temp hold file for merging
+_hold/
 
 # Logs
 logs
