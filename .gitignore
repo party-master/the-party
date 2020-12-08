@@ -5,7 +5,7 @@ bot_our-bot/config.json
 bot_re-education/config.json
 
 # index.js (to bring online multiple bots)
-index.js
+# index.js
 
 # wip
 bot_tester/
