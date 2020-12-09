@@ -769,6 +769,9 @@ client.on('ready', () => {
 client.on('message', async message => {
     if (message.content.startsWith(CMD_PREFIX)) {
         const cmdArgs = message.content.slice(CMD_PREFIX.length).trim().split(' ');
+        for (var i = 0; i < cmdArgs.length; i++) {
+            if (cmdArgs[i] == '') { cmdArgs.splice(i, 1); }
+        }
         const cmd = cmdArgs.shift();
         switch (cmd) {
             case 'help': if (cmdArgs.length != 0) { break; }
