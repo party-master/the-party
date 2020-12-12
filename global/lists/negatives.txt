@@ -18,3 +18,4 @@ negative
 untrue
 false
 lie
+falsehood

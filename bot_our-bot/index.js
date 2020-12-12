@@ -8,7 +8,8 @@ const utils = require(path_root + '/utils/functions.js');
 const fs = require('fs');
 const schedule = require('node-schedule');
 
-const img_party = 'https://i.imgur.com/GRSG1Em.png';
+// const img_party = 'https://i.imgur.com/GRSG1Em.png';  // default
+const img_party = 'https://imgur.com/2as1pWp';  // xmas
 const CMD_PREFIX = "!"
 
 let goodthink_doubleplus = utils.getLines("/global/lists/++goodthink.txt");
@@ -769,9 +770,6 @@ client.on('ready', () => {
 client.on('message', async message => {
     if (message.content.startsWith(CMD_PREFIX)) {
         const cmdArgs = message.content.slice(CMD_PREFIX.length).trim().split(' ');
-        for (var i = 0; i < cmdArgs.length; i++) {
-            if (cmdArgs[i] == '') { cmdArgs.splice(i, 1); }
-        }
         const cmd = cmdArgs.shift();
         switch (cmd) {
             case 'help': if (cmdArgs.length != 0) { break; }
