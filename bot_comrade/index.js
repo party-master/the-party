@@ -11,7 +11,7 @@ var warnings = utils.getLines("/bot_comrade/lists/warnings.txt");
 var affirmations = utils.getLines("/bot_comrade/lists/affirmations.txt");
 var reactions_affirmations = utils.getLines("/bot_comrade/lists/reactions_affirmations.txt");
 
-var chance_respond = 0.4;
+var chance_respond = 0.2;
 var chance_warn = 0.2;
 
 const CMD_PREFIX = "!"
