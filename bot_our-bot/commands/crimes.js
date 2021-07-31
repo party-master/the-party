@@ -25,11 +25,44 @@ module.exports = {
         const crimes = variables['crimes'];
 
         if (cmdArgs.length == 0) {
-            message.channel.send(
-                new Discord.MessageEmbed()
-                    .setTitle("Crimes")
-                    .setDescription(crimes.map(crime => "- " + utils.upper(crime)).sort()));
-            return;
+            let embed = new Discord.MessageEmbed();
+            if (crimes.length < 12) {
+                let crimes_str = crimes.map(crime => "- " + utils.upper(crime)).sort();
+                embed.addFields(
+                    {
+                        name: '‍__Crimes__',
+                        value: crimes_str,
+                        inline: true
+                    }
+                )
+            }
+            else {
+                let counter = 0;
+                let crimes_str_col1 = "";
+                let crimes_str_col2 = "";
+                for (let crime of crimes.sort()) {
+                    if (counter < crimes.length / 2) {
+                        crimes_str_col1 += "\n- " + utils.upper(crime);
+                    }
+                    else {
+                        crimes_str_col2 += "\n- " + utils.upper(crime);
+                    }
+                    counter += 1;
+                }
+                embed.addFields(
+                    {
+                        name: '‍__Crimes__',
+                        value: crimes_str_col1,
+                        inline: true
+                    },
+                    {
+                        name: '‍',
+                        value: crimes_str_col2,
+                        inline: true
+                    }
+                );
+            }
+            message.channel.send(embed);
         }
         else if (cmdArgs.length > 1 && (cmdArgs[0] == "add" || cmdArgs[0] == "remove")) {
             let vote = Vote.new();

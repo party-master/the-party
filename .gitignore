@@ -7,17 +7,14 @@ bot_re-education/config.json
 # index.js (to bring online multiple bots)
 # index.js
 
-# wip
-bot_tester/
-
 # Resources
 res/
 
 # Guild specific
-guilds/
+guilds
 
-# Temp hold file for merging
-_hold/
+# Embarrassments
+audio/sfx/sumner.mp3
 
 # Logs
 logs
