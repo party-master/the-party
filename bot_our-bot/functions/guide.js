@@ -5,7 +5,7 @@ module.exports = {
 		if (joined) { channel = client.channels.resolve(member.guild.systemChannelID); }
 		else { channel = client.channels.resolve(member.lastMessageChannelID); }
 		if (member.user.bot == false) {
-			channel.send("Repeat after me, " + member.user.toString() + ":\nI love The Party");
+			setTimeout(() => { channel.send("Repeat after me, " + member.user.toString() + ":\nI love The Party"); }, 2500);
 		}
 	}
 }

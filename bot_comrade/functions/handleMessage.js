@@ -12,9 +12,6 @@ module.exports = {
         let cmd = utils.lower(cmdArgs.shift());
         if (message.content.startsWith(globals.cmd_prefix)) {
             if (!utils.isComrade(client, message.member)) { return; }
-            if (cmd == 'play' && cmdArgs.length == 0) {
-                setTimeout(() => { message.channel.send("It's !sfx. And always has been! :D"); }, utils.randInteger(750, 1800));
-            }
             try { client.commands.get(cmd).exec(client, message, cmd, cmdArgs); }
             catch (error) { }
             try { client.sfx_commands.get(cmd).exec(client, message, cmd, cmdArgs); }
