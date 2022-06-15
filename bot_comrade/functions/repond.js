@@ -25,8 +25,7 @@ module.exports = {
                         user = client.users.cache.get(message.author.id);
                         user.send(utils.randItem(warnings));
                     }
-                }
-                else{ client.functions.get('snitch').exec(client, message, report); }      
+                }  
             }
             else if (report.goodthink){
                 if (Math.random() < chance_respond) {

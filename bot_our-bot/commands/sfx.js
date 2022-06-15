@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const globals = require(appRoot.path + '/global/globals.js');
 const fs = require('fs');
 
@@ -38,8 +38,8 @@ module.exports = {
     extra: [ getSfxCommandsString(true) ],
     exec(client, message, cmdArgs) {
         if (message.channel.type == 'dm') { return; }        
-        sfx_commands = getSfxCommands();
-        let embed = new Discord.MessageEmbed();
+        let sfx_commands = getSfxCommands();
+        let embed = new MessageEmbed();
         if (sfx_commands.length < 12) {  // single column limit
             let sfx_string = "";
             for (let sfx of sfx_commands) {
@@ -79,6 +79,6 @@ module.exports = {
                 }
             );
         }
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 }

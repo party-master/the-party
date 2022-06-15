@@ -1,10 +1,10 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const fs = require('fs');
 
 function embed(message, user, stats) {
-    let embed_stats = new Discord.MessageEmbed();
+    let embed_stats = new MessageEmbed();
     embed_stats.setTitle(user.username);
 
     let crime_keys = Object.keys(stats.crimes);
@@ -48,7 +48,7 @@ function embed(message, user, stats) {
         return;
     }
 
-    message.channel.send(embed_stats);
+    message.channel.send({ embeds: [embed_stats] });
     return;
 }
 
@@ -59,8 +59,10 @@ module.exports = {
         // add accused
         
         let user;
-        const users = message.mentions.users.array();
-        if (cmdArgs[0] == 'me') { user = message.author; }
+        const users = Array();
+        message.mentions.users.map(user => users.push(user));
+        console.log(users);
+        if (cmdArgs[0] == 'me' || cmdArgs.length == 0) { user = message.author; }
         else if (users.length == 0) { return; }
         else {user = client.users.resolve(users[0].id); }
 

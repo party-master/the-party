@@ -1,12 +1,14 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, Client, Collection, Intents } = require(appRoot.path + '/node_modules/discord.js');
 const config = require(appRoot.path + '/bot_historian/config.json');
 const fs = require('fs');
 
-const client = new Discord.Client();
+const client = new Client(
+	{ intents: [131071] }
+);
 
 // import functions
-client.functions = new Discord.Collection();
+client.functions = new Collection();
 const path_functions = appRoot.path + '/bot_historian/functions/';
 const functionFiles = fs.readdirSync(path_functions).filter(file => file.endsWith('.js'));
 for (let file of functionFiles) {
@@ -15,7 +17,7 @@ for (let file of functionFiles) {
 }
 
 // import commands
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 const path_cmds = appRoot.path + '/bot_historian/commands/';
 client.path_cmds = path_cmds;
 const commandFiles = fs.readdirSync(path_cmds).filter(file => file.endsWith('.js'));
@@ -26,9 +28,9 @@ for (let file of commandFiles) {
 
 client.once('ready', () => { console.log("Historian Online"); });
 
-client.on('message', (message) => {
+client.on('messageCreate', (message) => {
   try { client.functions.get('handleMessage').exec(client, message); }
-  catch (error) { }  
+  catch (error) { console.log(error); }  
 });
 
 client.login(config.token);

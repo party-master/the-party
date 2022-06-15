@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const Vote = require (appRoot.path + '/global/objects/vote.js');
 
@@ -25,9 +25,10 @@ module.exports = {
         const crimes = variables['crimes'];
 
         if (cmdArgs.length == 0) {
-            let embed = new Discord.MessageEmbed();
+            let embed = new MessageEmbed();
             if (crimes.length < 12) {
-                let crimes_str = crimes.map(crime => "- " + utils.upper(crime)).sort();
+                let crime_elems = crimes.map(crime => "- " + utils.upper(crime)).sort();
+                let crimes_str = crime_elems.join("\n");
                 embed.addFields(
                     {
                         name: '‍__Crimes__',
@@ -62,7 +63,7 @@ module.exports = {
                     }
                 );
             }
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         }
         else if (cmdArgs.length > 1 && (cmdArgs[0] == "add" || cmdArgs[0] == "remove")) {
             let vote = Vote.new();

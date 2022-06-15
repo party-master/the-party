@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const globals = require(appRoot.path + '/global/globals.js');
 const schedule = require('node-schedule');
@@ -58,7 +58,8 @@ class Vote {
         this.duration_str = utils.msToTimecode(duration);
 
         if (this.vote_type == 'courtcase') {
-            const users = message.mentions.users.array();
+            const users = Array();
+            message.mentions.users.map(user => users.push(user));
             if (users.length == 0) { return; }
             if (users.length > 0) {
                 var defendants = new Array();
@@ -144,7 +145,7 @@ class Vote {
             votes['latest_vote']['status'] = 'open';
         }
         utils.setJSON(path_votes, votes);
-        message.channel.send(this.embed(client));
+        message.channel.send({ embeds: [this.embed(client)] });
     }
     close(client) {
         let path_votes;
@@ -164,7 +165,7 @@ class Vote {
         let channel = guild.channels.resolve(this.channel_id);
         let msg_promise = channel.messages.fetch(this.message_id);
         msg_promise.then(msg => {
-            let reactions = msg.reactions.cache.array();
+            let reactions = Array.from(msg.reactions.cache.values());
             let emojis = reactions.map(reaction => { return reaction.emoji.name; })
             for (let i = 0; i < emojis.length; i++) {
                 if (emojis[i] == '👍') {
@@ -232,7 +233,7 @@ class Vote {
                     break;
             }
             this.status = 'closed';
-            msg.edit(this.embed(client));
+            msg.edit({embeds: [this.embed(client)] });
             this.details['archived'] = true;
 
             delete votes['open'][this.vote_id];
@@ -242,21 +243,21 @@ class Vote {
         }).catch(error => console.log(error));
     }
     embed(client) {
-        let embed_vote = new Discord.MessageEmbed();
+        let embed_vote = new MessageEmbed();
         switch (this.vote_type) {
             case 'vote':
                 embed_vote.setTitle("VOTE");
                 if (this.status == 'open') {
                     embed_vote.setDescription(this.details['desc']);  // add conditional?
                     if (this.time_open != this.time_close) {
-                        embed_vote.setFooter("Duration: " + this.duration_str);
+                        embed_vote.setFooter({ text: "Duration: " + this.duration_str });
                     }
                     return embed_vote;
                 }
                 else if (this.status == 'closed') {
                     embed_vote.setDescription(this.details['desc'])
                     if (this.time_open != this.time_close) {
-                        embed_vote.setFooter(this.passed ? "Vote Passed" : "Vote Failed");
+                        embed_vote.setFooter({ text: this.passed ? "Vote Passed" : "Vote Failed" });
                     }
                     return embed_vote;
                 }
@@ -273,17 +274,19 @@ class Vote {
                     }
                 );
                 if (this.status == 'open') {
-                    embed_vote.setFooter("Duration: " + this.duration_str);
+                    embed_vote.setFooter({ text: "Duration: " + this.duration_str });
                     return embed_vote;
                 }
                 else if (this.status == 'closed') {
                     if (this.details['reason']) {
-                        let footer = this.passed ? "Vote Passed" : "Vote Failed"
-                            + "\n" + this.details['reason'];
+                        let footer = {
+                            text: this.passed ? "Vote Passed" : "Vote Failed"
+                                + "\n" + this.details['reason']
+                        };
                         embed_vote.setFooter(footer);
                     }
                     else {
-                        embed_vote.setFooter(this.passed ? "Vote Passed" : "Vote Failed");
+                        embed_vote.setFooter({ text: this.passed ? "Vote Passed" : "Vote Failed" });
                     }
                     return embed_vote;
                 }
@@ -292,20 +295,24 @@ class Vote {
                 const defendants = this.details['defendant_ids'].map(id => { return client.users.resolve(id); });
                 const defendant_usernames = defendants.map(user => { return user.username; });
                 embed_vote.setTitle("The Party v. " + defendant_usernames);
-                embed_vote.setFooter("Case Number: " + this.vote_id + "\nBrought to you by The Party", globals.img_party);
+                embed_vote.setFooter({ text: "Case Number: " + this.vote_id + "\nBrought to you by The Party", iconURL: globals.img_party });
                 embed_vote.addFields(
                     {
                         name: "Plaintiff:",
-                        value: client.users.resolve(this.details['plaintiff_id']),
+                        // value: client.users.resolve(this.details['plaintiff_id']),
+                        // value: this.details['plaintiff_id'],
+                        value: client.users.resolve(this.details['plaintiff_id']).toString(),
                         inline: true
                     },
                     {
                         name: "Defendants:",
-                        value: defendants,
+                        value: defendants.join("\n"),
                         inline: true
                     }
                 )
+                
                 if (this.status == 'open') {
+                    
                     embed_vote.addFields(
                         {
                             name: "Charge:",
@@ -315,6 +322,7 @@ class Vote {
                             inline: false
                         }
                     );
+                    
                 }
                 else if (this.status == 'closed') {
                     const date_open = new Date(this.time_open);
@@ -337,7 +345,7 @@ class Vote {
                                 + ", G: " + this.votes_up
                                 + " (Min Needed: " + this.min_votes + ")"
                                 + "\n"
-                                + "\nopen: " + date_open.toLocaleDateString() + " " + date_open.toLocaleTimeString()
+                                + "\nOpen: " + date_open.toLocaleDateString() + " " + date_open.toLocaleTimeString()
                                 + "\nClose: " + date_close.toLocaleDateString() + " " + date_close.toLocaleTimeString(),
                             inline: false
                         }
@@ -357,8 +365,8 @@ class Vote {
                     }
                 );
                 switch (this.status) {
-                    case 'open': embed_vote.setFooter("Duration: " + this.duration_str); break;
-                    case 'closed': embed_vote.setFooter(this.passed ? "Vote Passed" : "Vote Failed"); break;
+                    case 'open': embed_vote.setFooter({ text: "Duration: " + this.duration_str }); break;
+                    case 'closed': embed_vote.setFooter({ text: this.passed ? "Vote Passed" : "Vote Failed" }); break;
                 }
                 return embed_vote;
         }

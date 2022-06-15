@@ -1,8 +1,8 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const globals = require(appRoot.path + '/global/globals.js');
 
-let embed_notcomrad = new Discord.MessageEmbed();
+let embed_notcomrad = new MessageEmbed();
 embed_notcomrad.setThumbnail(globals.img_party);
 embed_notcomrad.addFields(
     {

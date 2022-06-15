@@ -1,8 +1,8 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const globals = require(appRoot.path + '/global/globals.js');
 
-let embed_terrorist = new Discord.MessageEmbed();
+let embed_terrorist = new MessageEmbed();
 embed_terrorist.setThumbnail(globals.img_party);
 embed_terrorist.addFields(
     {

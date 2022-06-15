@@ -1,13 +1,15 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed, Client, Collection, Intents } = require(appRoot.path + '/node_modules/discord.js');
 const config = require(appRoot.path + '/bot_our-bot/config.json');
 const schedule = require('node-schedule');
 const fs = require('fs');
 
-const client = new Discord.Client();
+const client = new Client(
+	{ intents: [131071] }
+);
 
 // import functions
-client.functions = new Discord.Collection();
+client.functions = new Collection();
 const path_functions = appRoot.path + '/bot_our-bot/functions/';
 const functionFiles = fs.readdirSync(path_functions).filter(file => file.endsWith('.js'));
 for (let file of functionFiles) {
@@ -16,7 +18,7 @@ for (let file of functionFiles) {
 }
 
 // import commands
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 const path_cmds = appRoot.path + '/bot_our-bot/commands/';
 client.path_cmds = path_cmds;
 const commandFiles = fs.readdirSync(path_cmds).filter(file => file.endsWith('.js'));
@@ -26,12 +28,12 @@ for (let file of commandFiles) {
 }
 
 client.on('ready', () => {
-	console.log("Our Bot is Online");
-	client.user.setPresence({ activity: { type: 'WATCHING', name: 'over us' } });
+	console.log("Our Bot Online");
+	client.user.setPresence({ activities: [{ type: 'WATCHING', name: 'over us' }] });
 	client.functions.get('checkOpenVotes').exec(client);
 });
 
-client.on('message', message => {
+client.on('messageCreate', message => {
 	try { client.functions.get('handleMessage').exec(client, message); }
 	catch (error) { }
 })

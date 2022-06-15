@@ -1,11 +1,13 @@
 module.exports = {
 	name: 'guide',
 	exec(client, member, joined) {
-		let channel;
-		if (joined) { channel = client.channels.resolve(member.guild.systemChannelID); }
-		else { channel = client.channels.resolve(member.lastMessageChannelID); }
-		if (member.user.bot == false) {
-			setTimeout(() => { channel.send("Repeat after me, " + member.user.toString() + ":\nI love The Party"); }, 2500);
+		if (joined) {
+			if (member.user.bot == false) {
+				let channel = client.channels.resolve(member.guild.systemChannelId);
+				setTimeout(() => {
+					channel.send("Repeat after me, " + member.user.toString() + ":\nI love The Party");
+				}, 2500);
+			}
 		}
 	}
 }

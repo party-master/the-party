@@ -4,7 +4,7 @@ module.exports = {
     exec(client, message, cmd, cmdArgs) {
         if (message.author.bot == false){
             if (message.mentions.users.has(client.user.id)) {
-                message.channel.send("I am with you!");
+                message.channel.send({ text: "I am with you!" });
             }
         }
     }

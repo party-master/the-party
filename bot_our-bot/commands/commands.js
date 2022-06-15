@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const globals = require(appRoot.path + '/global/globals.js');
 const fs = require('fs');
@@ -25,7 +25,7 @@ module.exports = {
         if (message.channel.type == 'dm') { return; }
 
         // embed commands list
-        let embed_cmds = new Discord.MessageEmbed();
+        let embed_cmds = new MessageEmbed();
         let cmds_string, command;
         if (cmdArgs.length == 0) {
             cmds_string = "";
@@ -43,11 +43,11 @@ module.exports = {
                     value: cmds_string,
                     inline: false
                 }
-            ).setFooter(
-                "Include command name(s) with '" + globals.cmd_prefix + "commands' for more info."
+            ).setFooter({
+                text: "Include command name(s) with '" + globals.cmd_prefix + "commands' for more info."
                 + "\nExample: " + globals.cmd_prefix + "commands vote crimes"
-            );
-            message.channel.send(embed_cmds);
+            });
+            message.channel.send({ embeds: [embed_cmds] });
             return;
         }
 
@@ -95,8 +95,8 @@ module.exports = {
                     inline: false
                 }
             )
-            embed_cmds.setFooter("Brought to you by The Party", globals.img_party);
-            message.channel.send(embed_cmds);
+            embed_cmds.setFooter({ text: "Brought to you by The Party", iconURL: globals.img_party });
+            message.channel.send({ embeds: [embed_cmds] });
             return;
         }
     }
