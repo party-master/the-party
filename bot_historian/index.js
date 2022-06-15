@@ -30,7 +30,7 @@ client.once('ready', () => { console.log("Historian Online"); });
 
 client.on('messageCreate', (message) => {
   try { client.functions.get('handleMessage').exec(client, message); }
-  catch (error) { console.log(error); }  
+  catch (error) { }  
 });
 
 client.login(config.token);
