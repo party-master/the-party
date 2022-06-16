@@ -4,7 +4,8 @@ const globals = require(appRoot.path + '/global/globals.js');
 const Vote = require (appRoot.path + '/global/objects/vote.js');
 
 module.exports = {
-    name: 'handleMessage',
+    name: 'messageCreate',
+    once: false,
     exec(client, message) {
 
         // commands

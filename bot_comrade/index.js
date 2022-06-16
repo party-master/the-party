@@ -3,9 +3,7 @@ const { Discord, Client, Collection, Intents } = require(appRoot.path + '/node_m
 const config = require('./config.json');
 const fs = require('fs');
 
-const client = new Client(
-	{ intents: [131071] }
-);
+const client = new Client({ intents: [131071] });
 const path_cmds = appRoot.path + '/bot_comrade/commands/';
 client.path_cmds = path_cmds;
 
@@ -35,12 +33,16 @@ for (let file of sfx_files) {
   client.sfx_commands.set(sfx, require(`${path_cmds}sfx.js`));
 }
 
-client.once('ready', () => { console.log("Comrade Online"); });
+// import events
+client.events = new Collection();
+const path_events = appRoot.path + '/bot_comrade/events/';
+const eventFiles = fs.readdirSync(path_events).filter(file => file.endsWith('.js'));
 
-client.on('messageCreate', (message) => {
-  try { client.functions.get('handleMessage').exec(client, message); }
-  catch (error) { }
-  
-});
+// handle events
+for (let file of eventFiles) {
+  let event = require(`${path_events}${file}`);
+  if (event.once) { client.once(event.name, (...args) => event.exec(client, ...args)); }
+  else { client.on(event.name, (...args) => event.exec(client, ...args)); }
+}
 
 client.login(config.token);

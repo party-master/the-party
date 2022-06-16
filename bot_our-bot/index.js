@@ -4,9 +4,7 @@ const config = require(appRoot.path + '/bot_our-bot/config.json');
 const schedule = require('node-schedule');
 const fs = require('fs');
 
-const client = new Client(
-	{ intents: [131071] }
-);
+const client = new Client({ intents: [131071] });
 
 // import functions
 client.functions = new Collection();
@@ -27,19 +25,16 @@ for (let file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-client.on('ready', () => {
-	console.log("Our Bot Online");
-	client.user.setPresence({ activities: [{ type: 'WATCHING', name: 'over us' }] });
-	client.functions.get('checkOpenVotes').exec(client);
-});
+// import events
+client.events = new Collection();
+const path_events = appRoot.path + '/bot_our-bot/events/';
+const eventFiles = fs.readdirSync(path_events).filter(file => file.endsWith('.js'));
 
-client.on('messageCreate', message => {
-	try { client.functions.get('handleMessage').exec(client, message); }
-	catch (error) { }
-})
-
-client.on('guildMemberAdd', member => {
-	client.functions.get('guide').exec(client, member, true);
-})
+// handle events
+for (let file of eventFiles) {
+  let event = require(`${path_events}${file}`);
+  if (event.once) { client.once(event.name, (...args) => event.exec(client, ...args)); }
+  else { client.on(event.name, (...args) => event.exec(client, ...args)); }
+}
 
 client.login(config.token);

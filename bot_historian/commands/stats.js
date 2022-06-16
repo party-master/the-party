@@ -5,7 +5,7 @@ const fs = require('fs');
 
 function embed(message, user, stats) {
     let embed_stats = new MessageEmbed();
-    embed_stats.setTitle(user.username);
+    embed_stats.setTitle(user.username + "#" + user.discriminator);
 
     let crime_keys = Object.keys(stats.crimes);
     crime_keys.sort();
@@ -61,7 +61,6 @@ module.exports = {
         let user;
         const users = Array();
         message.mentions.users.map(user => users.push(user));
-        console.log(users);
         if (cmdArgs[0] == 'me' || cmdArgs.length == 0) { user = message.author; }
         else if (users.length == 0) { return; }
         else {user = client.users.resolve(users[0].id); }

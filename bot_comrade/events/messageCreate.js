@@ -3,7 +3,8 @@ const utils = require(appRoot.path + '/global/utils.js');
 const globals = require(appRoot.path + '/global/globals.js');
 
 module.exports = {
-    name: 'handleMessage',
+    name: 'messageCreate',
+    once: false,
     exec(client, message) {
         if (message.author.bot) { return; }
         

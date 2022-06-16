@@ -14,7 +14,7 @@ const {
 const { disconnect } = require('process');
 
 const path_sfx = appRoot.path + '/audio/sfx/';
-let timeout = 30000;
+let timeout = 20000;
 
 module.exports = {
     name: 'sfx',
