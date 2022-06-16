@@ -13,9 +13,9 @@ module.exports = {
         if (message.content.startsWith(globals.cmd_prefix)) {
             if (!utils.isComrade(client, message.member)) { return; }
             try { client.commands.get(cmd).exec(client, message, cmd, cmdArgs); }
-            catch (error) { console.log(error); }
+            catch (error) { }
             try { client.sfx_commands.get(cmd).exec(client, message, cmd, cmdArgs); }
-            catch (error) { console.log(error); }
+            catch (error) { }
         }
 
         // respond
