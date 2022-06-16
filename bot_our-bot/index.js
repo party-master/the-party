@@ -1,7 +1,6 @@
 const appRoot = require('app-root-path');
-const { Discord, MessageEmbed, Client, Collection, Intents } = require(appRoot.path + '/node_modules/discord.js');
+const { Client, Collection } = require(appRoot.path + '/node_modules/discord.js');
 const config = require(appRoot.path + '/bot_our-bot/config.json');
-const schedule = require('node-schedule');
 const fs = require('fs');
 
 const client = new Client({ intents: [131071] });

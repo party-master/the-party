@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const { Discord, Client, Collection, Intents } = require(appRoot.path + '/node_modules/discord.js');
+const { Client, Collection } = require(appRoot.path + '/node_modules/discord.js');
 const config = require('./config.json');
 const fs = require('fs');
 

@@ -430,12 +430,12 @@ module.exports = {
             return vote;
         }
         if (typeof (message.embeds[0]['title']) == 'undefined') { return false; }
-        if (message.embeds[0]['title'].startsWith("The Party v.")) {
+        if (message.embeds[0]['title'] && message.embeds[0]['title'].startsWith("The Party v.")) {
             let vote = beginVoting('courtcase');
             if (!vote) { return; }
             schedule.scheduleJob(vote.time_close, function () { vote.close(client); });
         }
-        else if (message.embeds[0]['title'].startsWith("VOTE")) {
+        else if (message.embeds[0]['title'] && message.embeds[0]['title'].startsWith("VOTE")) {
             let vote = beginVoting('vote');
             if (!vote) { return; }
             if (vote.time_open != vote.time_close) {
