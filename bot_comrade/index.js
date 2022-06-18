@@ -4,43 +4,43 @@ const config = require('./config.json');
 const fs = require('fs');
 
 const client = new Client({ intents: [131071] });
-const path_cmds = appRoot.path + '/bot_comrade/commands/';
-client.path_cmds = path_cmds;
+const cmdsPath = appRoot.path + '/bot_comrade/commands/';
+client.cmdsPath = cmdsPath;
 
 // import functions
 client.functions = new Collection();
-const path_functions = appRoot.path + '/bot_comrade/functions/';
-const functionFiles = fs.readdirSync(path_functions).filter(file => file.endsWith('.js'));
+const functionsPath = appRoot.path + '/bot_comrade/functions/';
+const functionFiles = fs.readdirSync(functionsPath).filter(file => file.endsWith('.js'));
 for (let file of functionFiles) {
-  let func = require(`${path_functions}${file}`);
+  let func = require(`${functionsPath}${file}`);
   client.functions.set(func.name, func);
 }
 
 // import commands
 client.commands = new Collection();
-const commandFiles = fs.readdirSync(path_cmds).filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(cmdsPath).filter(file => file.endsWith('.js'));
 for (let file of commandFiles) {
-  let command = require(`${path_cmds}${file}`);
+  let command = require(`${cmdsPath}${file}`);
   client.commands.set(command.name, command);
 }
 
 // import sfx commands
-client.sfx_commands = new Collection();
-const path_sfx = appRoot.path + '/audio/sfx/';
-const sfx_files = fs.readdirSync(path_sfx).filter(file => file.endsWith('.mp3'));
-for (let file of sfx_files) {
+client.sfxCommands = new Collection();
+const sfxPath = appRoot.path + '/audio/sfx/';
+const sfxFiles = fs.readdirSync(sfxPath).filter(file => file.endsWith('.mp3'));
+for (let file of sfxFiles) {
   let sfx = file.slice(0, -4);
-  client.sfx_commands.set(sfx, require(`${path_cmds}sfx.js`));
+  client.sfxCommands.set(sfx, require(`${cmdsPath}sfx.js`));
 }
 
 // import events
 client.events = new Collection();
-const path_events = appRoot.path + '/bot_comrade/events/';
-const eventFiles = fs.readdirSync(path_events).filter(file => file.endsWith('.js'));
+const eventsPath = appRoot.path + '/bot_comrade/events/';
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
 // handle events
 for (let file of eventFiles) {
-  let event = require(`${path_events}${file}`);
+  let event = require(`${eventsPath}${file}`);
   if (event.once) { client.once(event.name, (...args) => event.exec(client, ...args)); }
   else { client.on(event.name, (...args) => event.exec(client, ...args)); }
 }

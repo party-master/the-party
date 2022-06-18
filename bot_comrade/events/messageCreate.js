@@ -9,13 +9,13 @@ module.exports = {
         if (message.author.bot) { return; }
         
         // handle commands
-        let cmdArgs = message.content.slice(globals.cmd_prefix.length).trim().split(' ');
+        let cmdArgs = message.content.slice(globals.cmdPrefix.length).trim().split(' ');
         let cmd = utils.lower(cmdArgs.shift());
-        if (message.content.startsWith(globals.cmd_prefix)) {
+        if (message.content.startsWith(globals.cmdPrefix)) {
             if (!utils.isComrade(client, message.member)) { return; }
             try { client.commands.get(cmd).exec(client, message, cmd, cmdArgs); }
             catch (error) { }
-            try { client.sfx_commands.get(cmd).exec(client, message, cmd, cmdArgs); }
+            try { client.sfxCommands.get(cmd).exec(client, message, cmd, cmdArgs); }
             catch (error) { }
         }
 

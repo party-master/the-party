@@ -9,8 +9,8 @@ module.exports = {
     exec(client, message) {
 
         // commands
-        if (message.content.startsWith(globals.cmd_prefix)) {
-            let cmdArgs = message.content.slice(globals.cmd_prefix.length).trim().split(' ');
+        if (message.content.startsWith(globals.cmdPrefix)) {
+            let cmdArgs = message.content.slice(globals.cmdPrefix.length).trim().split(' ');
             let cmd = cmdArgs.shift();
             if (message.channel.type != 'dm') {
                 utils.checkCreateGuildFiles(message.guild.id);
@@ -19,7 +19,7 @@ module.exports = {
                 }
             }
             try { client.commands.get(cmd).exec(client, message, cmdArgs); }
-            catch (error) { }
+            catch (error) {console.log(error); }
         }
         
         // self embeds
@@ -29,7 +29,7 @@ module.exports = {
 
         // make comrade
         else {
-            if (utils.searchForLine(message, utils.getLines("/global/lists/++goodthink.txt"))) {
+            if (!message.author.bot && utils.searchForLine(message, utils.getLines("/global/lists/++goodthink.txt"))) {
                 utils.makeComrade(client, message.guild.id, message.author.id);
             }
         }

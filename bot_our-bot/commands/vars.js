@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const Discord = require(appRoot.path + '/node_modules/discord.js');
+const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const Vote = require (appRoot.path + '/global/objects/vote.js');
 
@@ -19,20 +19,19 @@ module.exports = {
     extra: [],
     exec(client, message, cmdArgs) {
         if (message.channel.type == 'dm') { return; }
-        let path_variables = appRoot.path + '/guilds/' + message.guild.id + '/variables.json';
-        let variables = utils.getJSON(path_variables);
+        let variablesPath = appRoot.path + '/guilds/' + message.guild.id + '/variables.json';
+        let variables = utils.getJSON(variablesPath);
         let amounts = variables['amounts'];
         if (cmdArgs.length == 0) {
-            message.channel.send(
-                new Discord.MessageEmbed()
-                    .setTitle("Variables")
-                    .setDescription(
-                        Object.keys(amounts).map(
-                            amount => "- " + amount + ": " + amounts[amount]
-                                + ((amount == 'default_vote_duration' || amount == 'min_edu_duration') ? "ms (" + utils.msToTimecode(amounts[amount]) + ")" : "")
-                        ).sort()
-                    )
-            )
+            varsEmbed = new MessageEmbed()
+            varsEmbed.setTitle("Variables")
+            varsEmbed.setDescription(
+                    Object.keys(amounts).map(
+                        amount => "- " + amount + ": " + amounts[amount]
+                            + ((amount == 'default_vote_duration' || amount == 'min_edu_duration') ? "ms (" + utils.msToTimecode(amounts[amount]) + ")" : "") + "\n"
+                    ).sort().toString().replaceAll(",", "")
+                )
+            message.channel.send({ embeds: [varsEmbed] })
         }
         else if (!amounts[cmdArgs[0]]) { return; }
         let amount = amounts[cmdArgs[0]];

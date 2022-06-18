@@ -1,0 +1,1042 @@
+{
+    "latest_vote": {
+        "id": "00053",
+        "status": "closed"
+    },
+    "open": {},
+    "closed": {
+        "00001": {
+            "vote_type": "vote",
+            "vote_id": "00001",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863720295465222145",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1625997366617,
+            "time_close": 1625997368617,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00002": {
+            "vote_type": "vote",
+            "vote_id": "00002",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863720319269339193",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1625997372227,
+            "time_close": 1625997372227,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00003": {
+            "vote_type": "addcrime",
+            "vote_id": "00003",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863720492459753502",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1625997413505,
+            "time_close": 1625997533505,
+            "details": {
+                "crime": "something",
+                "archived": true
+            }
+        },
+        "00004": {
+            "vote_type": "vote",
+            "vote_id": "00004",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863721152568623104",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1625997570908,
+            "time_close": 1625997572908,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00005": {
+            "vote_type": "vote",
+            "vote_id": "00005",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863862655911460866",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626031307103,
+            "time_close": 1626031307103,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00006": {
+            "vote_type": "vote",
+            "vote_id": "00006",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863862673653366794",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626031311353,
+            "time_close": 1626031313353,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00007": {
+            "vote_type": "vote",
+            "vote_id": "00007",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863863397115363358",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626031483821,
+            "time_close": 1626031483821,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00008": {
+            "vote_type": "vote",
+            "vote_id": "00008",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863863414747955230",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626031488032,
+            "time_close": 1626031490032,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00009": {
+            "vote_type": "vote",
+            "vote_id": "00009",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863933277966565406",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626048144929,
+            "time_close": 1626048144929,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00010": {
+            "vote_type": "vote",
+            "vote_id": "00010",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863933293313261589",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626048148633,
+            "time_close": 1626048150633,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00011": {
+            "vote_type": "vote",
+            "vote_id": "00011",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863935367026442270",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626048643054,
+            "time_close": 1626048643054,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00012": {
+            "vote_type": "vote",
+            "vote_id": "00012",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863935381606498344",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626048646528,
+            "time_close": 1626048648528,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00013": {
+            "vote_type": "vote",
+            "vote_id": "00013",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863948023363797022",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626051660711,
+            "time_close": 1626051660711,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00014": {
+            "vote_type": "vote",
+            "vote_id": "00014",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863948374264381462",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626051744438,
+            "time_close": 1626051744438,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00015": {
+            "vote_type": "vote",
+            "vote_id": "00015",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863948392673443860",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626051748743,
+            "time_close": 1626051750743,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00016": {
+            "vote_type": "vote",
+            "vote_id": "00016",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863948774383288350",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626051839660,
+            "time_close": 1626051841660,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00017": {
+            "vote_type": "vote",
+            "vote_id": "00017",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863949405584752691",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626051990112,
+            "time_close": 1626051992112,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00018": {
+            "vote_type": "vote",
+            "vote_id": "00018",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863950114682175488",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626052159305,
+            "time_close": 1626052159305,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00019": {
+            "vote_type": "vote",
+            "vote_id": "00019",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863952341593620510",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626052690158,
+            "time_close": 1626052695158,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00020": {
+            "vote_type": "vote",
+            "vote_id": "00020",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863952727528833044",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626052782171,
+            "time_close": 1626052787171,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00021": {
+            "vote_type": "vote",
+            "vote_id": "00021",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863953096861679650",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626052870211,
+            "time_close": 1626052875211,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00022": {
+            "vote_type": "vote",
+            "vote_id": "00022",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863953333412823040",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626052926630,
+            "time_close": 1626052931630,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00023": {
+            "vote_type": "vote",
+            "vote_id": "00023",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863953354484351018",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626052931695,
+            "time_close": 1626052936695,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00024": {
+            "vote_type": "vote",
+            "vote_id": "00024",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863953958808977448",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626053075735,
+            "time_close": 1626053075735,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00025": {
+            "vote_type": "vote",
+            "vote_id": "00025",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863954010134544384",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "10s",
+            "time_open": 1626053087971,
+            "time_close": 1626053097971,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00026": {
+            "vote_type": "vote",
+            "vote_id": "00026",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863954037266055178",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "40s",
+            "time_open": 1626053094445,
+            "time_close": 1626053134445,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00027": {
+            "vote_type": "vote",
+            "vote_id": "00027",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864245558671441960",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626122598413,
+            "time_close": 1626122598413,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00028": {
+            "vote_type": "vote",
+            "vote_id": "00028",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864246044447080448",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626122714120,
+            "time_close": 1626122714120,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00029": {
+            "vote_type": "vote",
+            "vote_id": "00029",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864246066806521867",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626122719606,
+            "time_close": 1626122721606,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00030": {
+            "vote_type": "vote",
+            "vote_id": "00030",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864246821013159956",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626122899274,
+            "time_close": 1626122899274,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00031": {
+            "vote_type": "vote",
+            "vote_id": "00031",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864246986827104313",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626122938778,
+            "time_close": 1626122938778,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00032": {
+            "vote_type": "vote",
+            "vote_id": "00032",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864247106176679968",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626122967313,
+            "time_close": 1626122967313,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00033": {
+            "vote_type": "vote",
+            "vote_id": "00033",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864247287362748478",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626123010453,
+            "time_close": 1626123010453,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00034": {
+            "vote_type": "vote",
+            "vote_id": "00034",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864247309650755584",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2s",
+            "time_open": 1626123015776,
+            "time_close": 1626123017776,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00035": {
+            "vote_type": "vote",
+            "vote_id": "00035",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864409418527408148",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626161666066,
+            "time_close": 1626161666066,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00036": {
+            "vote_type": "vote",
+            "vote_id": "00036",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864435145323053056",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626167799883,
+            "time_close": 1626167799883,
+            "details": {
+                "desc": "sdkfj"
+            }
+        },
+        "00037": {
+            "vote_type": "addcrime",
+            "vote_id": "00037",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864620324724408360",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1626211949483,
+            "time_close": 1626212069483,
+            "details": {
+                "crime": "treason",
+                "archived": true
+            }
+        },
+        "00038": {
+            "vote_type": "vote",
+            "vote_id": "00038",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "865075888612966442",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1626320564052,
+            "time_close": 1626320564052,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00039": {
+            "vote_type": "vote",
+            "vote_id": "00039",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "956363127153381387",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1648085137575,
+            "time_close": 1648085137575,
+            "details": {
+                "desc": "test"
+            }
+        },
+        "00040": {
+            "vote_type": "vote",
+            "vote_id": "00040",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985990405063589928",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655148831798,
+            "time_close": 1655148831798,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00041": {
+            "vote_type": "vote",
+            "vote_id": "00041",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985990751290810418",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655148914683,
+            "time_close": 1655148914683,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00042": {
+            "vote_type": "vote",
+            "vote_id": "00042",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985990988126359613",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655148970666,
+            "time_close": 1655148970666,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00043": {
+            "vote_type": "vote",
+            "vote_id": "00043",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985991031474499664",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "4s",
+            "time_open": 1655148981015,
+            "time_close": 1655148985015,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00044": {
+            "vote_type": "vote",
+            "vote_id": "00044",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985993838248222760",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "4s",
+            "time_open": 1655149650218,
+            "time_close": 1655149654218,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00045": {
+            "vote_type": "vote",
+            "vote_id": "00045",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985994271544971336",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "4s",
+            "time_open": 1655149753614,
+            "time_close": 1655149757614,
+            "details": {
+                "desc": "",
+                "archived": true
+            }
+        },
+        "00047": {
+            "vote_type": "addcrime",
+            "vote_id": "00047",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985999735880048650",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "4s",
+            "time_open": 1655151056240,
+            "time_close": 1655151060240,
+            "details": {
+                "crime": "something",
+                "archived": true
+            }
+        },
+        "00048": {
+            "vote_type": "removecrime",
+            "vote_id": "00048",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985999813084598325",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "4s",
+            "time_open": 1655151074715,
+            "time_close": 1655151078715,
+            "details": {
+                "crime": "something",
+                "archived": true
+            }
+        },
+        "00046": {
+            "vote_type": "addcrime",
+            "vote_id": "00046",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "985999662504869929",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 1,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655151038716,
+            "time_close": 1655151158716,
+            "details": {
+                "crime": "something",
+                "archived": true
+            }
+        },
+        "00049": {
+            "vote_type": "vote",
+            "vote_id": "00049",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986001748487458866",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655151536195,
+            "time_close": 1655151536195,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00050": {
+            "vote_type": "vote",
+            "vote_id": "00050",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986002350755954758",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655151679774,
+            "time_close": 1655151679774,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00051": {
+            "vote_type": "vote",
+            "vote_id": "00051",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "987091543406043197",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655411364139,
+            "time_close": 1655411364139,
+            "details": {
+                "desc": "test"
+            }
+        },
+        "00052": {
+            "vote_type": "vote",
+            "vote_id": "00052",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "987095137106665472",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655412220938,
+            "time_close": 1655412220938,
+            "details": {
+                "desc": ""
+            }
+        },
+        "00053": {
+            "vote_type": "vote",
+            "vote_id": "00053",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "987107589840048218",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "",
+            "time_open": 1655415189939,
+            "time_close": 1655415189939,
+            "details": {
+                "desc": ""
+            }
+        }
+    }
+}

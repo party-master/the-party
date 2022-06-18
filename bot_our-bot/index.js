@@ -7,31 +7,31 @@ const client = new Client({ intents: [131071] });
 
 // import functions
 client.functions = new Collection();
-const path_functions = appRoot.path + '/bot_our-bot/functions/';
-const functionFiles = fs.readdirSync(path_functions).filter(file => file.endsWith('.js'));
+const functionsPath = appRoot.path + '/bot_our-bot/functions/';
+const functionFiles = fs.readdirSync(functionsPath).filter(file => file.endsWith('.js'));
 for (let file of functionFiles) {
-	let func = require(`${path_functions}${file}`);
+	let func = require(`${functionsPath}${file}`);
 	client.functions.set(func.name, func);
 }
 
 // import commands
 client.commands = new Collection();
-const path_cmds = appRoot.path + '/bot_our-bot/commands/';
-client.path_cmds = path_cmds;
-const commandFiles = fs.readdirSync(path_cmds).filter(file => file.endsWith('.js'));
+const cmdsPath = appRoot.path + '/bot_our-bot/commands/';
+client.cmdsPath = cmdsPath;
+const commandFiles = fs.readdirSync(cmdsPath).filter(file => file.endsWith('.js'));
 for (let file of commandFiles) {
-	let command = require(`${path_cmds}${file}`);
+	let command = require(`${cmdsPath}${file}`);
 	client.commands.set(command.name, command);
 }
 
 // import events
 client.events = new Collection();
-const path_events = appRoot.path + '/bot_our-bot/events/';
-const eventFiles = fs.readdirSync(path_events).filter(file => file.endsWith('.js'));
+const eventsPath = appRoot.path + '/bot_our-bot/events/';
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
 // handle events
 for (let file of eventFiles) {
-  let event = require(`${path_events}${file}`);
+  let event = require(`${eventsPath}${file}`);
   if (event.once) { client.once(event.name, (...args) => event.exec(client, ...args)); }
   else { client.on(event.name, (...args) => event.exec(client, ...args)); }
 }

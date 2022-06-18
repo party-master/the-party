@@ -20,50 +20,50 @@ module.exports = {
     extra: [],
     exec(client, message, cmdArgs) {
         if (message.channel.type == 'dm') { return; }
-        const path_variables = appRoot.path + '/guilds/' + message.guild.id + '/variables.json';
-        const variables = utils.getJSON(path_variables);
+        const variablesPath = appRoot.path + '/guilds/' + message.guild.id + '/variables.json';
+        const variables = utils.getJSON(variablesPath);
         const crimes = variables['crimes'];
 
         if (cmdArgs.length == 0) {
-            let embed = new MessageEmbed();
+            let crimesEmbed = new MessageEmbed();
             if (crimes.length < 12) {
-                let crime_elems = crimes.map(crime => "- " + utils.upper(crime)).sort();
-                let crimes_str = crime_elems.join("\n");
-                embed.addFields(
+                let crimeElems = crimes.map(crime => "- " + utils.upper(crime)).sort();
+                let crimesStr = crimeElems.join("\n");
+                crimesEmbed.addFields(
                     {
                         name: '‍__Crimes__',
-                        value: crimes_str,
+                        value: crimesStr,
                         inline: true
                     }
                 )
             }
             else {
                 let counter = 0;
-                let crimes_str_col1 = "";
-                let crimes_str_col2 = "";
+                let crimesStrCol1 = "";
+                let crimesStrCol2 = "";
                 for (let crime of crimes.sort()) {
                     if (counter < crimes.length / 2) {
-                        crimes_str_col1 += "\n- " + utils.upper(crime);
+                        crimesStrCol1 += "\n- " + utils.upper(crime);
                     }
                     else {
-                        crimes_str_col2 += "\n- " + utils.upper(crime);
+                        crimesStrCol2 += "\n- " + utils.upper(crime);
                     }
                     counter += 1;
                 }
-                embed.addFields(
+                crimesEmbed.addFields(
                     {
                         name: '‍__Crimes__',
-                        value: crimes_str_col1,
+                        value: crimesStrCol1,
                         inline: true
                     },
                     {
                         name: '‍',
-                        value: crimes_str_col2,
+                        value: crimesStrCol2,
                         inline: true
                     }
                 );
             }
-            message.channel.send({ embeds: [embed] });
+            message.channel.send({ embeds: [crimesEmbed] });
         }
         else if (cmdArgs.length > 1 && (cmdArgs[0] == "add" || cmdArgs[0] == "remove")) {
             let vote = Vote.new();

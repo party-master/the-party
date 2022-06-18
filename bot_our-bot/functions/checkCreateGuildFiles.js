@@ -2,10 +2,10 @@ const appRoot = require('app-root-path');
 
 module.exports = {
     name: 'checkCreateGuildFiles',
-    exec(guild_id) {
-        let path_guild = appRoot.path + '/guilds/' + guild_id;
-        if (!fs.existsSync(path_guild)) {
-            fs.mkdirSync(path_guild);
+    exec(guildId) {
+        let guildPath = appRoot.path + '/guilds/' + guildId;
+        if (!fs.existsSync(guildPath)) {
+            fs.mkdirSync(guildPath);
         }
         let files = {
             "variables.json": {
@@ -20,7 +20,7 @@ module.exports = {
                 ].sort()
             },
             "courtroom.json": {
-                latest_vote: {
+                latestVote: {
                     id: 00000,
                     status: 'closed'
                 },
@@ -28,7 +28,7 @@ module.exports = {
                 closed: {}
             },
             "votes.json": {
-                latest_vote: {
+                latestVote: {
                     id: 00000,
                     status: 'closed'
                 },
@@ -38,7 +38,7 @@ module.exports = {
         }
         for (i = 0; i < Object.keys(files).length; i++) {
             let file = Object.keys(files)[i];
-            let path = path_guild + "/" + file;
+            let path = guildPath + "/" + file;
             if (!fs.existsSync(path)) {
                 fs.appendFileSync(path, JSON.stringify(files[file], null, 4), function (err) { });
             }

@@ -2,9 +2,9 @@ const appRoot = require('app-root-path');
 const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const globals = require(appRoot.path + '/global/globals.js');
 
-let embed_terrorist = new MessageEmbed();
-embed_terrorist.setThumbnail(globals.img_party);
-embed_terrorist.addFields(
+let terroristEmbed = new MessageEmbed();
+terroristEmbed.setThumbnail(globals.imgParty);
+terroristEmbed.addFields(
     {
         name: 'You are a Terrorist',
         value: "\u200B\nTo be a Comrade\nis to love The Party",
@@ -14,5 +14,5 @@ embed_terrorist.addFields(
 
 module.exports = {
     name: 'terroristEmbed',
-    embed: embed_terrorist
+    embed: terroristEmbed
 }

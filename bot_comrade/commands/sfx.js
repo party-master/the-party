@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const { Discord, Collection, VoiceBasedChannel, VoiceChannel } = require(appRoot.path + '/node_modules/discord.js');
+const { Collection } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const fs = require('fs');
 const {
@@ -13,7 +13,7 @@ const {
 } = require('@discordjs/voice');
 const { disconnect } = require('process');
 
-const path_sfx = appRoot.path + '/audio/sfx/';
+const sfxPath = appRoot.path + '/audio/sfx/';
 let timeout = 20000;
 
 module.exports = {
@@ -22,15 +22,15 @@ module.exports = {
     exec(client, message, cmd, cmdArgs) {
 
         // update sfx commands
-        let trigger_return = true;
-        const sfx_files = fs.readdirSync(path_sfx).filter(file => file.endsWith('.mp3'));
-        client.sfx_commands = new Collection();
-        for (let file of sfx_files) {
+        let triggerReturn = true;
+        const sfxFiles = fs.readdirSync(sfxPath).filter(file => file.endsWith('.mp3'));
+        client.sfxCommands = new Collection();
+        for (let file of sfxFiles) {
             let sfx = utils.lower(file.slice(0, -4));
-            client.sfx_commands.set(sfx, require(`${client.path_cmds}sfx.js`));
-            if (cmd == sfx) { trigger_return = false; }
+            client.sfxCommands.set(sfx, require(`${client.cmdsPath}sfx.js`));
+            if (cmd == sfx) { triggerReturn = false; }
         }
-        if (trigger_return) { return; }
+        if (triggerReturn) { return; }
 
         // play sfx
         try {

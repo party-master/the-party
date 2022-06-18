@@ -2,9 +2,9 @@ const appRoot = require('app-root-path');
 const utils = require(appRoot.path + '/global/utils.js');
 
 const goodthink = utils.getLines("/global/lists/+goodthink.txt");
-const goodthink_doubleplus = utils.getLines("/global/lists/++goodthink.txt");
+const goodthinkDoubleplus = utils.getLines("/global/lists/++goodthink.txt");
 const wrongthink = utils.getLines("/global/lists/+wrongthink.txt");
-const wrongthink_doubleplus = utils.getLines("/global/lists/++wrongthink.txt");
+const wrongthinkDoubleplus = utils.getLines("/global/lists/++wrongthink.txt");
 const negatives = utils.getLines("/global/lists/negatives.txt");
 
 class Report {
@@ -14,10 +14,10 @@ class Report {
         this.crime = false;
         this.line = false;
         const searches = {
-            terrorism: wrongthink_doubleplus,
+            terrorism: wrongthinkDoubleplus,
             wrongthink: wrongthink,
             negatives: negatives,
-            goodthink_doubleplus: goodthink_doubleplus,
+            goodthinkDoubleplus: goodthinkDoubleplus,
             goodthink: goodthink
         }
         for (let key in searches) {
@@ -33,7 +33,7 @@ class Report {
                 case 'negatives':
                     this.line = false;
                     return report;
-                case 'goodthink_doubleplus':
+                case 'goodthinkDoubleplus':
                     this.goodthink = key;
                     return report;
                 case 'goodthink':

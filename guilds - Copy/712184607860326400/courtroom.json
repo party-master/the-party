@@ -1,0 +1,712 @@
+{
+    "latest_vote": {
+        "id": "00058",
+        "status": "open"
+    },
+    "open": {},
+    "closed": {
+        "00001": {
+            "vote_type": "courtcase",
+            "vote_id": "00001",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863721318721126411",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "3s",
+            "time_open": 1625997610532,
+            "time_close": 1625997613532,
+            "details": {
+                "desc": "<@!429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00002": {
+            "vote_type": "courtcase",
+            "vote_id": "00002",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863721640307589161",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "3s",
+            "time_open": 1625997687197,
+            "time_close": 1625997690197,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00003": {
+            "vote_type": "courtcase",
+            "vote_id": "00003",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863721816840601601",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "3s",
+            "time_open": 1625997729350,
+            "time_close": 1625997732350,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00004": {
+            "vote_type": "courtcase",
+            "vote_id": "00004",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863721901141524481",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "3s",
+            "time_open": 1625997749413,
+            "time_close": 1625997752413,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00005": {
+            "vote_type": "courtcase",
+            "vote_id": "00005",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863722290506891294",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "3s",
+            "time_open": 1625997842170,
+            "time_close": 1625997845170,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00006": {
+            "vote_type": "courtcase",
+            "vote_id": "00006",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863722391409917962",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "3s",
+            "time_open": 1625997866218,
+            "time_close": 1625997869218,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00007": {
+            "vote_type": "courtcase",
+            "vote_id": "00007",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863723633071095838",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "3s",
+            "time_open": 1625998162303,
+            "time_close": 1625998165303,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00008": {
+            "vote_type": "courtcase",
+            "vote_id": "00008",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863861612003328011",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626031058226,
+            "time_close": 1626031063226,
+            "details": {
+                "desc": "<@!429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00009": {
+            "vote_type": "courtcase",
+            "vote_id": "00009",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863862484938653716",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626031266228,
+            "time_close": 1626031271228,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00010": {
+            "vote_type": "courtcase",
+            "vote_id": "00010",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863935318185345065",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626048631450,
+            "time_close": 1626048636450,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00011": {
+            "vote_type": "courtcase",
+            "vote_id": "00011",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "863949466439385159",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626052004716,
+            "time_close": 1626052009716,
+            "details": {
+                "desc": "<@!429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00012": {
+            "vote_type": "courtcase",
+            "vote_id": "00012",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864396039963541544",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "4s",
+            "time_open": 1626158476164,
+            "time_close": 1626158480164,
+            "details": {
+                "desc": "<@!429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00013": {
+            "vote_type": "courtcase",
+            "vote_id": "00013",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864431966724292618",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626167042034,
+            "time_close": 1626167047034,
+            "details": {
+                "desc": "<@!429888068393107478> crime=terrorism",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Terrorism",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00014": {
+            "vote_type": "courtcase",
+            "vote_id": "00014",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864432732595159050",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626167224656,
+            "time_close": 1626167229656,
+            "details": {
+                "desc": "<@!716039200864206878> crime=sabotage",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "716039200864206878"
+                ],
+                "charge": "Sabotage",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00015": {
+            "vote_type": "courtcase",
+            "vote_id": "00015",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "864623395857891328",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1626212681749,
+            "time_close": 1626212686749,
+            "details": {
+                "desc": "<@!716039200864206878> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "716039200864206878"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00016": {
+            "vote_type": "courtcase",
+            "vote_id": "00016",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "865075960076697601",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1626320581089,
+            "time_close": 1626320701089,
+            "details": {
+                "desc": "<@!429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00017": {
+            "vote_type": "courtcase",
+            "vote_id": "00017",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "865089116886794270",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1626323717835,
+            "time_close": 1626323837835,
+            "details": {
+                "desc": "<@!429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00047": {
+            "vote_type": "courtcase",
+            "vote_id": "00047",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986011301044166756",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655153813719,
+            "time_close": 1655153933719,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00050": {
+            "vote_type": "courtcase",
+            "vote_id": "00050",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986012220003586109",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655154033080,
+            "time_close": 1655154153080,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00049": {
+            "vote_type": "courtcase",
+            "vote_id": "00049",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986011607207407656",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655153886886,
+            "time_close": 1655154006886,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00051": {
+            "vote_type": "courtcase",
+            "vote_id": "00051",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986012509452525618",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655154101979,
+            "time_close": 1655154221979,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00048": {
+            "vote_type": "courtcase",
+            "vote_id": "00048",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986011459429474354",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655153851404,
+            "time_close": 1655153971404,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00052": {
+            "vote_type": "courtcase",
+            "vote_id": "00052",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986013006959869972",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655154220448,
+            "time_close": 1655154340448,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00055": {
+            "vote_type": "courtcase",
+            "vote_id": "00055",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986013706167144538",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 1,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655154387108,
+            "time_close": 1655154507108,
+            "details": {
+                "desc": "<@429888068393107478> <@716039200864206878> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478",
+                    "716039200864206878"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        },
+        "00056": {
+            "vote_type": "courtcase",
+            "vote_id": "00056",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986014283919917157",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1655154524873,
+            "time_close": 1655154529873,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00058": {
+            "vote_type": "courtcase",
+            "vote_id": "00058",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986091068699312169",
+            "status": "closed",
+            "passed": true,
+            "votes_up": 1,
+            "votes_down": 0,
+            "min_votes": 1,
+            "duration_str": "5s",
+            "time_open": 1655172832056,
+            "time_close": 1655172837056,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Guilty",
+                "archived": true
+            }
+        },
+        "00057": {
+            "vote_type": "courtcase",
+            "vote_id": "00057",
+            "user_id": "429888068393107478",
+            "guild_id": "712184607860326400",
+            "channel_id": "765126128686858241",
+            "message_id": "986091003410808842",
+            "status": "closed",
+            "passed": false,
+            "votes_up": 0,
+            "votes_down": 1,
+            "min_votes": 1,
+            "duration_str": "2m",
+            "time_open": 1655172816454,
+            "time_close": 1655172936454,
+            "details": {
+                "desc": "<@429888068393107478> crime=wrongthink",
+                "plaintiff_id": "429888068393107478",
+                "defendant_ids": [
+                    "429888068393107478"
+                ],
+                "charge": "Wrongthink",
+                "verdict": "Not Guilty",
+                "archived": true
+            }
+        }
+    }
+}

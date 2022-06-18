@@ -13,7 +13,7 @@ module.exports = {
                 message.channel.send("Repeat after me, " + message.member.user.toString() + ":\nI love The Party");
                 return true;
             }
-            message.channel.send({ embeds: [client.functions.get('notComradeEmbed').embed] });
+            message.channel.send({ embeds: [client.functions.get('uncomradeEmbed').embed] });
             return true;
         }
         return false;

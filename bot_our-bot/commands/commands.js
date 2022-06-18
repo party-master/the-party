@@ -4,11 +4,11 @@ const utils = require(appRoot.path + '/global/utils.js');
 const globals = require(appRoot.path + '/global/globals.js');
 const fs = require('fs');
 
-const sfx_commands = [];
-const path_sfx = appRoot.path + '/audio/sfx/';
-const sfx_files = fs.readdirSync(path_sfx).filter(file => file.endsWith('.mp3'));
-for (let file of sfx_files) { sfx_commands.push(globals.cmd_prefix + file.slice(0, -4)); }
-sfx_commands.sort();
+const sfxCommands = [];
+const sfxPath = appRoot.path + '/audio/sfx/';
+const sfxFiles = fs.readdirSync(sfxPath).filter(file => file.endsWith('.mp3'));
+for (let file of sfxFiles) { sfxCommands.push(globals.cmdPrefix + file.slice(0, -4)); }
+sfxCommands.sort();
 
 module.exports = {
     name: 'commands',
@@ -17,86 +17,86 @@ module.exports = {
     include: [],
     optional: ["command_name(s) for specific information"],
     example: [
-        globals.cmd_prefix + "commands",
-        globals.cmd_prefix + "commands judge vote"
+        globals.cmdPrefix + "commands",
+        globals.cmdPrefix + "commands judge vote"
     ],
     extra: [],
     exec(client, message, cmdArgs) {
         if (message.channel.type == 'dm') { return; }
 
         // embed commands list
-        let embed_cmds = new MessageEmbed();
-        let cmds_string, command;
+        let cmdsEmbed = new MessageEmbed();
+        let cmdsString, command;
         if (cmdArgs.length == 0) {
-            cmds_string = "";
+            cmdsString = "";
             for (var entry of client.commands.entries()) {
                 command = entry[1];
                 if (command.visible) {
-                    cmds_string += "\n" + globals.cmd_prefix + command.name;
+                    cmdsString += "\n" + globals.cmdPrefix + command.name;
                 }
             }
-            // embed_cmds.setTitle("The Party");
-            embed_cmds.setThumbnail(globals.img_party);
-            embed_cmds.addFields(
+            // cmdsEmbed.setTitle("The Party");
+            cmdsEmbed.setThumbnail(globals.imgParty);
+            cmdsEmbed.addFields(
                 {
                     name: '**__Commands__**',
-                    value: cmds_string,
+                    value: cmdsString,
                     inline: false
                 }
             ).setFooter({
-                text: "Include command name(s) with '" + globals.cmd_prefix + "commands' for more info."
-                + "\nExample: " + globals.cmd_prefix + "commands vote crimes"
+                text: "Include command name(s) with '" + globals.cmdPrefix + "commands' for more info."
+                + "\nExample: " + globals.cmdPrefix + "commands vote crimes"
             });
-            message.channel.send({ embeds: [embed_cmds] });
+            message.channel.send({ embeds: [cmdsEmbed] });
             return;
         }
 
         // embed specific commands
         else {
-            cmds_str = "";
-            cmds_listed = [];
+            cmdsStr = "";
+            cmdsListed = [];
             while (true) {
                 for (let cmd of cmdArgs) {
-                    if (cmd.startsWith(globals.cmd_prefix)) { cmd = cmd.substring(1); }
+                    if (cmd.startsWith(globals.cmdPrefix)) { cmd = cmd.substring(1); }
 
                     command = client.commands.get(cmd);
                     if (typeof (command) == 'undefined' || !command.visible) { continue; }
     
                     let next = false;
-                    for (let listed of cmds_listed) if (listed == cmd) next = true;
+                    for (let listed of cmdsListed) if (listed == cmd) next = true;
                     if (next) { continue; }
-                    cmds_listed.push(cmd);
+                    cmdsListed.push(cmd);
     
-                    if (cmds_str == "") { cmds_str += "\u200B"; }
-                    cmds_str += "\n**" + globals.cmd_prefix + cmd + "**\n" + command.description + "\n";
+                    if (cmdsStr == "") { cmdsStr += "\u200B"; }
+                    cmdsStr += "\n**" + globals.cmdPrefix + cmd + "**\n" + command.description + "\n";
                     if (command.include || command.optional || command.example ) {
-                        cmds_str += "```prolog\n";
+                        cmdsStr += "```prolog\n";
                         for (let label of ['include', 'optional', 'example', 'extra']) {
                             if (command[label].length) {
                                 if (label != 'extra') {
-                                    cmds_str += "\n\n" + utils.upper(label);
+                                    cmdsStr += "\n\n" + utils.upper(label);
                                 }
                                 for (let arg of command[label]) {
-                                    cmds_str += "\n" + arg;
+                                    cmdsStr += "\n" + arg;
                                 }
                             }
                         }
-                        cmds_str += "```";
+                        cmdsStr += "```";
                     }
                 }
                 break;
             }
-            if (cmds_str == "") { return; }
-            // embed_cmds.setTitle("The Party");
-            embed_cmds.addFields(
+            if (cmdsStr == "") { return; }
+            // cmdsEmbed.setTitle("The Party");
+            cmdsEmbed.addFields(
                 {
                     name: '**__Commands__**',
-                    value: cmds_str,
+                    value: cmdsStr,
                     inline: false
                 }
             )
-            embed_cmds.setFooter({ text: "Brought to you by The Party", iconURL: globals.img_party });
-            message.channel.send({ embeds: [embed_cmds] });
+            cmdsEmbed.setFooter({ text: "Brought to you by The Party", iconURL: globals.imgParty });
+            message.channel.send({ embeds: [cmdsEmbed] });
             return;
         }
     }

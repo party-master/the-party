@@ -9,7 +9,7 @@ module.exports = {
         if (message.author.bot) { return; }
         
         // handle commands
-        let cmdArgs = message.content.slice(globals.cmd_prefix.length).trim().split(' ');
+        let cmdArgs = message.content.slice(globals.cmdPrefix.length).trim().split(' ');
         let cmd = utils.lower(cmdArgs.shift());
         try { client.commands.get(cmd).exec(client, message, cmdArgs); }
         catch (error) { }

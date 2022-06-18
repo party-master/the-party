@@ -9,15 +9,15 @@ module.exports = {
     description: 'Checks for and closes open votes',
     exec(client) {
         const files_guilds = fs.readdirSync(appRoot.path + '/guilds/');
-        for (guild_id of files_guilds) {
-            for (path_suffix of ['/votes.json', '/courtroom.json']) {
-                const path_votes = appRoot.path + '/guilds/' + guild_id + path_suffix;
-                const votes = utils.getJSON(path_votes);
-                let time_now = new Date().getTime();
-                for (vote_id of Object.keys(votes['open'])) {
+        for (guildId of files_guilds) {
+            for (pathSuffix of ['/votes.json', '/courtroom.json']) {
+                const votesPath = appRoot.path + '/guilds/' + guildId + pathSuffix;
+                const votes = utils.getJSON(votesPath);
+                let timeNow = new Date().getTime();
+                for (let voteId of Object.keys(votes['open'])) {
                     let vote = Vote.new();
-                    vote.assign(votes['open'][vote_id]);
-                    if (vote.time_close < time_now) { vote.close(client); }
+                    vote.assign(votes['open'][voteId]);
+                    if (vote.time_close < timeNow) { vote.close(client); }
                     else { schedule.scheduleJob(vote.time_close, function () { vote.close(client); }); }
                 }
             }
