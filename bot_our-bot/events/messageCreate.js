@@ -27,11 +27,21 @@ module.exports = {
             Vote.handleSelfEmbed(client, message);
         }
 
-        // make comrade
-        else {
-            if (!message.author.bot && utils.searchForLine(message, utils.getLines("/global/lists/++goodthink.txt"))) {
-                utils.makeComrade(client, message.guild.id, message.author.id);
+        // handle wrongthink
+        else if (!message.author.bot && utils.searchForLine(message, utils.getLines("/global/lists/++wrongthink.txt"))) {
+            message.delete();
+            if (utils.isComrade(client, message.member)) {
+                utils.makeTerrorist(client, message.guild.id, message.author.id);
+                message.channel.send(message.author.toString() + " has been sent to re-education.");
+                console.log(message.author.username + " has been sent to re-education.");
             }
         }
+        
+
+        // handle goodthink
+        else if (!message.author.bot && utils.searchForLine(message, utils.getLines("/global/lists/++goodthink.txt"))) {
+            utils.makeComrade(client, message.guild.id, message.author.id);
+        }
+        
     }
 }

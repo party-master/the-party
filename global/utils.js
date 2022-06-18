@@ -65,15 +65,15 @@ function upper(word) {
 }
 
 function arrayToListString(a) {
-    var elem, elem_str;
+    var elem, elemStr;
     var str = "";
     for (i = 0; i < a.length; i++) {
         elem = a[i];
-        elem_str = elem.toString();
-        if (a.length == 1) { str += elem_str; }
-        else if (i != a.length - 1 && a.length == 2) { str += elem_str + " "; }
-        else if (i != a.length - 1) { str += elem_str + ", "; }
-        else { str += "& " + elem_str; }
+        elemStr = elem.toString();
+        if (a.length == 1) { str += elemStr; }
+        else if (i != a.length - 1 && a.length == 2) { str += elemStr + " "; }
+        else if (i != a.length - 1) { str += elemStr + ", "; }
+        else { str += "& " + elemStr; }
     }
     return str;
 }
@@ -84,20 +84,20 @@ function msToTimecode(ms) {
     const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
     const days = Math.floor(ms / (1000 * 60 * 60 * 24));
 
-    let time_str = "";
-    time_str += (days == 0) ? "" : days + "d";
-    time_str += (days > 0 && (hours > 0 || mins > 0 || secs > 0)) ? " " : "";
-    time_str += (hours == 0) ? "" : hours + "h";
-    time_str += (hours > 0 && (mins > 0 || secs > 0)) ? " " : "";
-    time_str += (mins == 0) ? "" : mins + "m";
-    time_str += (mins > 0 && secs > 0) ? " " : "";
-    time_str += (secs == 0) ? "" : secs + "s";
-    return time_str;
+    let timeStr = "";
+    timeStr += (days == 0) ? "" : days + "d";
+    timeStr += (days > 0 && (hours > 0 || mins > 0 || secs > 0)) ? " " : "";
+    timeStr += (hours == 0) ? "" : hours + "h";
+    timeStr += (hours > 0 && (mins > 0 || secs > 0)) ? " " : "";
+    timeStr += (mins == 0) ? "" : mins + "m";
+    timeStr += (mins > 0 && secs > 0) ? " " : "";
+    timeStr += (secs == 0) ? "" : secs + "s";
+    return timeStr;
 }
 
 function parseTimeArgs(cmdArgs) {
     let duration = 0;
-    const millisecond_amts = {
+    const millisecondAmts = {
         secs: 1000,
         mins: 60000,
         hours: 3600000,
@@ -106,19 +106,19 @@ function parseTimeArgs(cmdArgs) {
         months: 2419200000,
         years: 29030400000
     }
-    let msg_warn = "";
-    const timeunit_names = ['secs', 'mins', 'hours', 'days', 'weeks', 'months', 'years'];
-    for (let unit_name of timeunit_names) {
+    let msgWarn = "";
+    const timeunitNames = ['secs', 'mins', 'hours', 'days', 'weeks', 'months', 'years'];
+    for (let unitName of timeunitNames) {
         for (let arg of cmdArgs) {
-            if (arg.startsWith(unit_name + '=')) {
-                let sliced = arg.slice(unit_name.length + 1, arg.length);
-                if (isNaN(sliced)) { msg_warn += "Check " + unit_name + " argument.\n" }  // CHECK
-                else if (sliced == "") { msg_warn += "Check " + unit_name + " argument.\n" }  // CHECK
-                else { duration += parseInt(sliced) * millisecond_amts[unit_name]; break; }
+            if (arg.startsWith(unitName + '=')) {
+                let sliced = arg.slice(unitName.length + 1, arg.length);
+                if (isNaN(sliced)) { msgWarn += "Check " + unitName + " argument.\n" }  // CHECK
+                else if (sliced == "") { msgWarn += "Check " + unitName + " argument.\n" }  // CHECK
+                else { duration += parseInt(sliced) * millisecondAmts[unitName]; break; }
             }
         }
     }
-    return (msg_warn == "") ? duration : msg_warn;
+    return (msgWarn == "") ? duration : msgWarn;
 }
 
 function getLines(path) {
@@ -129,54 +129,54 @@ function searchForLine(message, list) {
     list = shuffle(list);
     const msg = message.content.toLowerCase();
     for (i = 0; i < list.length; i++) {
-        if (msg.includes(list[i])) { return list[i]; }
+        if (msg.replaceAll(" ", "").includes(list[i].replaceAll(" ", ""))) { return list[i]; }
     }
     return false;
 }
 
 function isComrade(client, member) {
     const guild = client.guilds.resolve(member.guild.id);
-    const role_comrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
-    if (member.roles.cache.has(role_comrade)) { return true; }
+    const roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
+    if (member.roles.cache.has(roleComrade)) { return true; }
     else { return false; }
 }
   
 function isTerrorist(client, member) {
     const guild = client.guilds.resolve(member.guild.id);
-    const role_terrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
-    if (member.roles.cache.has(role_terrorist)) { return true; }
+    const roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
+    if (member.roles.cache.has(roleTerrorist)) { return true; }
     else { return false; }
 }
 
-function makeComrade(client, guild_id, user_resolvable) {
-    const guild = client.guilds.resolve(guild_id);
-    guild.members.fetch(user_resolvable)
+function makeComrade(client, guildId, userResolvable) {
+    const guild = client.guilds.resolve(guildId);
+    guild.members.fetch(userResolvable)
         .then(member => {
-            const role_comrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
-            const role_terrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
-            member.roles.remove(role_terrorist);
-            member.roles.add(role_comrade);
+            const roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
+            const roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
+            member.roles.remove(roleTerrorist);
+            member.roles.add(roleComrade);
         })
         .catch(console.error);
 }
 
-function makeTerrorist(client, guild_id, user_resolvable) {
-    const guild = client.guilds.resolve(guild_id);
-    guild.members.fetch(user_resolvable)
+function makeTerrorist(client, guildId, userResolvable) {
+    const guild = client.guilds.resolve(guildId);
+    guild.members.fetch(userResolvable)
         .then(member => {
             if (member.id == '716039200864206878') { return; }  // partymaster
-            const role_comrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
-            const role_terrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
-            member.roles.remove(role_comrade);
-            member.roles.add(role_terrorist);
+            const roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
+            const roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
+            member.roles.remove(roleComrade);
+            member.roles.add(roleTerrorist);
         })
         .catch(console.error);
 }
 
-function checkCreateGuildFiles(guild_id) {
-    let path_guild = appRoot.path + '/guilds/' + guild_id;
-    if (!fs.existsSync(path_guild)) {
-        fs.mkdirSync(path_guild);
+function checkCreateGuildFiles(guildId) {
+    let guildPath = appRoot.path + '/guilds/' + guildId;
+    if (!fs.existsSync(guildPath)) {
+        fs.mkdirSync(guildPath);
     }
     let files = {
         "variables.json": {
@@ -192,7 +192,7 @@ function checkCreateGuildFiles(guild_id) {
             ].sort()
         },
         "courtroom.json": {
-            latest_vote: {
+            latestVote: {
                 id: 00000,
                 status: 'closed'
             },
@@ -200,7 +200,7 @@ function checkCreateGuildFiles(guild_id) {
             closed: {}
         },
         "votes.json": {
-            latest_vote: {
+            latestVote: {
                 id: 00000,
                 status: 'closed'
             },
@@ -210,7 +210,7 @@ function checkCreateGuildFiles(guild_id) {
     }
     for (i = 0; i < Object.keys(files).length; i++) {
         let file = Object.keys(files)[i];
-        let path = path_guild + "/" + file;
+        let path = guildPath + "/" + file;
         if (!fs.existsSync(path)) {
             fs.appendFileSync(path, JSON.stringify(files[file], null, 4), function (err) { });
         }
@@ -255,10 +255,10 @@ module.exports = {
 
     isTerrorist(client, member) { return isTerrorist(client, member); },
 
-    makeComrade(client, guild_id, user_resolvable) { return makeComrade(client, guild_id, user_resolvable); },
+    makeComrade(client, guildId, userResolvable) { return makeComrade(client, guildId, userResolvable); },
 
-    makeTerrorist(client, guild_id, user_resolvable) { return makeTerrorist(client, guild_id, user_resolvable) },
+    makeTerrorist(client, guildId, userResolvable) { return makeTerrorist(client, guildId, userResolvable) },
 
-    checkCreateGuildFiles(guild_id) { return checkCreateGuildFiles(guild_id); }
+    checkCreateGuildFiles(guildId) { return checkCreateGuildFiles(guildId); }
 
 }
