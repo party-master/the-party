@@ -10,9 +10,11 @@ aint
 isnt
 wont
 never
-not 
-no 
-noo 
+not
+no
+noo
+nooo
+noooo
 hate
 zero
 negative
