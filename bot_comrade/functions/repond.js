@@ -16,7 +16,7 @@ module.exports = {
         if (message.author.bot == false){
             let user, emoji;
             let report = Report.get(message);
-            if (report.crime){
+            if (report.crime && utils.isComrade(client, message.member)){
                 if (message.channel.type != 'dm'){
                     if (Math.random() < chanceRespond){
                         setTimeout(() => { message.channel.send(utils.randItem(musings)); }, utils.randInteger(750, 2500));
