@@ -7,7 +7,7 @@ var warnings = utils.getLines("/bot_comrade/lists/warnings.txt");
 var affirmations = utils.getLines("/bot_comrade/lists/affirmations.txt");
 var reactionAffirmations = utils.getLines("/bot_comrade/lists/reactions_affirmations.txt");
 
-var chanceRespond = 0.0;
+var chanceRespond = 0.2;
 var chanceWarn = 0.2;
 
 module.exports = {
