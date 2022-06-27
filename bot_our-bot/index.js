@@ -1,9 +1,9 @@
 const appRoot = require('app-root-path');
-const { Client, Collection } = require(appRoot.path + '/node_modules/discord.js');
-const config = require(appRoot.path + '/bot_our-bot/config.json');
+const { Client, Collection, Intents } = require(appRoot.path + '/node_modules/discord.js');
+const config = require('./config.json');
 const fs = require('fs');
 
-const client = new Client({ intents: [131071] });
+ const client = new Client({ intents: [131071, Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 // import functions
 client.functions = new Collection();
@@ -12,6 +12,7 @@ const functionFiles = fs.readdirSync(functionsPath).filter(file => file.endsWith
 for (let file of functionFiles) {
 	let func = require(`${functionsPath}${file}`);
 	client.functions.set(func.name, func);
+	delete require.cache[require.resolve(`${functionsPath}${file}`)];
 }
 
 // import commands
@@ -21,19 +22,19 @@ client.cmdsPath = cmdsPath;
 const commandFiles = fs.readdirSync(cmdsPath).filter(file => file.endsWith('.js'));
 for (let file of commandFiles) {
 	let command = require(`${cmdsPath}${file}`);
-	client.commands.set(command.name, command);
+	client.commands.set(command.data.name, command);
+	delete require.cache[require.resolve(`${cmdsPath}${file}`)];
 }
 
 // import events
 client.events = new Collection();
 const eventsPath = appRoot.path + '/bot_our-bot/events/';
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
-
-// handle events
 for (let file of eventFiles) {
-  let event = require(`${eventsPath}${file}`);
-  if (event.once) { client.once(event.name, (...args) => event.exec(client, ...args)); }
-  else { client.on(event.name, (...args) => event.exec(client, ...args)); }
+	let event = require(`${eventsPath}${file}`);
+	if (event.once) { client.once(event.name, (...args) => event.execute(client, ...args)); }
+	else { client.on(event.name, (...args) => event.execute(client, ...args)); }
+	delete require.cache[require.resolve(`${eventsPath}${file}`)];
 }
 
 client.login(config.token);

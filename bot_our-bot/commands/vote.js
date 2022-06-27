@@ -1,20 +1,21 @@
 const appRoot = require('app-root-path');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const slashOptions = require(appRoot.path + '/global/slashOptions.js');
 const Vote = require (appRoot.path + '/global/objects/vote.js');
 
 module.exports = {
-    name: 'vote',
-    visible: true,
-    description: 'Call a vote',
-    include: [],
-    optional: ["command_name(s) for specific information"],
-    example: [
-        "!commands",
-        "!commands judge vote"
-    ],
-    extra: [],
-    exec(client, message, cmdArgs) {
-        if (message.channel.type == 'dm') { return; }
-        Vote.open(client, 'vote', message, cmdArgs)
+    data: new SlashCommandBuilder()
+        .setName('vote')
+        .setDescription('Call a vote.')
+        .addStringOption((option) =>
+            option
+                .setName('subject')
+                .setDescription('The subject of the vote')
+                .setRequired(false))
+        .addStringOption((option) => slashOptions.reason(option, false, 'vote'))
+        .addNumberOption((option) => slashOptions.duration(option, false)),
+    execute(client, interaction) {
+        if (interaction.channel.type == 'dm') { return; }
+        Vote.open(client, 'vote', interaction)
     }
 }
-

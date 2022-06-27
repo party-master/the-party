@@ -1,11 +1,25 @@
 const fs = require('fs');
 const appRoot = require('app-root-path');
 
-if (!Array.prototype.last){
-    Array.prototype.last = function(){
+if (!Array.prototype.last) {
+    Array.prototype.last = function () {
         return this[this.length - 1];  // allows myArray.last()
     };
 };
+
+function createComradesRole(guild) {
+    return guild.roles.create({
+        name: 'Comrades',
+        color: '#70c2e9',
+    });
+}
+
+function createTerroristsRole(guild) {
+    return guild.roles.create({
+        name: 'Terrorists',
+        color: '#ff9f49',
+    })
+}
 
 function randInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -136,14 +150,18 @@ function searchForLine(message, list) {
 
 function isComrade(client, member) {
     const guild = client.guilds.resolve(member.guild.id);
-    const roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
+    let roleComrade;
+    try { roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id; }
+    catch (error) { roleComrade = createComradesRole(member.guild); roleComrade.then(res => { console.log(res) }); }
     if (member.roles.cache.has(roleComrade)) { return true; }
     else { return false; }
 }
-  
+
 function isTerrorist(client, member) {
     const guild = client.guilds.resolve(member.guild.id);
-    const roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
+    let roleTerrorist;
+    try { roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id; }
+    catch (error) { roleTerrorist = createTerroristsRole(member.guild); roleTerrorist.then(res => { console.log(res) }); }
     if (member.roles.cache.has(roleTerrorist)) { return true; }
     else { return false; }
 }
@@ -207,7 +225,7 @@ function checkCreateGuildFiles(guildId) {
             open: {},
             closed: {}
         }
-    }
+    };
     for (i = 0; i < Object.keys(files).length; i++) {
         let file = Object.keys(files)[i];
         let path = guildPath + "/" + file;
@@ -215,6 +233,10 @@ function checkCreateGuildFiles(guildId) {
             fs.appendFileSync(path, JSON.stringify(files[file], null, 4), function (err) { });
         }
     }
+}
+
+function normalizeStr(str) {
+    return upper(str.toLowerCase());
 }
 
 module.exports = {
@@ -226,7 +248,7 @@ module.exports = {
     removeItemOnce(a, value) { return removeItemOnce(a, value); },
 
     removeItemAll(a, value) { return removeItemAll(a, value); },
- 
+
     shuffle(a) { return shuffle(a); },
 
     arrayToListString(a) { return arrayToListString(a); },
@@ -259,6 +281,8 @@ module.exports = {
 
     makeTerrorist(client, guildId, userResolvable) { return makeTerrorist(client, guildId, userResolvable) },
 
-    checkCreateGuildFiles(guildId) { return checkCreateGuildFiles(guildId); }
+    checkCreateGuildFiles(guildId) { return checkCreateGuildFiles(guildId); },
+
+    normalizeStr(str) { return normalizeStr(str); },
 
 }

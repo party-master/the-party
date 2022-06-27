@@ -6,11 +6,14 @@ const schedule = require('node-schedule');
 
 class Vote {
     constructor() { }
-    open(client, voteType, message, cmdArgs) {
-        const variablesPath = appRoot.path + '/guilds/' + message.guild.id + '/variables.json'
-        let variables = utils.getJSON(variablesPath);
-        let amounts = variables['amounts'];
+    open(client, voteType, interaction) {
+        const { commandName, options } = interaction;
+        const subject = options.getString('subject');
+        const reason = options.getString('reason');
 
+        const variablesPath = appRoot.path + '/guilds/' + interaction.guild.id + '/variables.json'
+        const variables = utils.getJSON(variablesPath);
+        const amounts = variables['amounts'];
         let pathSuffix;
         switch (voteType) {
             case 'addcrime':
@@ -19,118 +22,114 @@ class Vote {
             case 'vote': pathSuffix = '/votes.json'; break;
             case 'courtcase': pathSuffix = '/courtroom.json'; break;
         }
-        const votesPath = appRoot.path + '/guilds/' + message.guild.id + pathSuffix;
+        const votesPath = appRoot.path + '/guilds/' + interaction.guild.id + pathSuffix;
         const votes = utils.getJSON(votesPath);
 
-        this.details = { desc: "" };
-        if (cmdArgs.length != 0) {
-            let trigger = false;
-            const timeUnits = ['secs', 'mins', 'hours', 'days', 'weeks', 'months', 'years'];
-            for (let arg of cmdArgs) {
-                for (let unit of timeUnits) {
-                    if (arg.startsWith(unit + "=")) { trigger = true; break; }
-                }
-                if (trigger) { continue; }
-                if (arg === cmdArgs[0]) { this.details['desc'] += arg; }
-                else { this.details['desc'] += " " + arg; }
-            }
-        }
+        this.details = {};
+        this.details.subject = subject != null ? subject : "";
+        this.details.reason = reason != null ? reason : "";
         this.voteId = utils.pad(parseInt(votes['latestVote']['id']) + 1, 5);
         this.voteType = voteType
-        this.userId = message.author.id;
-        this.guildId = message.guild.id;
-        this.channelId = message.channel.id;
-        this.messageId = message.id;
+        this.userId = interaction.user.id;
+        this.guildId = interaction.guild.id;
+        this.channelId = interaction.channel.id;
+        this.messageId = interaction.id;
         this.status = 'open';
         this.passed = false;
         this.votesUp = 0;
         this.votesDown = 0;
-        this.minVotes = amounts['min_votes'];
-
-        let duration = utils.parseTimeArgs(cmdArgs);
-        if (isNaN(duration)) { message.channel.send(duration); return; }
+        this.minVotes = amounts['MIN_VOTES'];
         this.timeOpen = new Date().getTime();
+
+        let duration = options.getNumber('duration');
+        if (duration != null) { duration = utils.parseTimeArgs(['mins=' + duration]); }
+        else { duration = 0; }
         if (duration == 0 && voteType != 'vote') {
-            duration = parseInt(amounts['default_vote_duration']);
+            duration = parseInt(amounts['DEFAULT_VOTE_DURATION']);
             this.timeClose = this.timeOpen + duration;
         }
         this.timeClose = this.timeOpen + duration;
         this.durationStr = utils.msToTimecode(duration);
 
-        if (this.voteType == 'courtcase') {
-            const users = Array();
-            message.mentions.users.map(user => users.push(user));
-            if (users.length == 0) { return; }
-            if (users.length > 0) {
-                var defendants = new Array();
-                var bots = new Array();
-                for (let i = 0; i < users.length; i++) {
-                    if (users[i].bot) { bots.push(users[i]); }
-                    else if (users[i].bot == false) { defendants.push(users[i]); }
-                }
-                const defendantIds = defendants.map(user => { return user.id; });
-                if (defendants.length > 0) {
-                    let crimes = variables['crimes'];
-
-                    let charge = false;
-                    let sliced = "That"
-                    for (let arg of cmdArgs) {
-                        if (arg.startsWith('crime=')) {
-                            charge = "none";
-                            sliced = arg.slice(6, arg.length).toLowerCase().trim();
-                            for (let crime of crimes) {
-                                if (sliced == crime.toLowerCase()) {
-                                    charge = utils.upper(sliced);
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    if (!charge) {
-                        message.channel.send(
-                            "You must use the crime keyword, Comrade.\n"
-                            + "crime=crime_name\n"
-                            + "Use !crimes to get the list of crimes."
-                        );
-                        return;
-                    }
-                    if (charge == "none") {
-                        message.channel.send("\"" + utils.upper(sliced) + "\"" + " is not a crime. Yet.");
-                        return;
-                    }
-                    this.details = {
-                        desc: this.details['desc'],
-                        plaintiffId: message.member.id,
-                        defendantIds: defendantIds,
-                        charge: charge,
-                        verdict: "--",
-                        archived: false
-                    };
-                }
-                else if (bots.length > 0) {
-                    message.channel.send("Bots are Our friends.");
+        let crimeExists;
+        switch (this.voteType) {
+            case 'courtcase':
+                const defendant = options.getUser('user');
+                if (defendant.bot) {
+                    interaction.reply({
+                        content: "Bots are Our friends.",
+                        ephemeral: true
+                    });
                     return;
                 }
-            }
-        }
-        else if (this.voteType == 'variable') {
-            this.details = {
-                variable: cmdArgs[0],
-                value: cmdArgs[1],
-                ogValue: amounts[cmdArgs[0]],
-                reason: false
-            }
-            if (cmdArgs[0] == 'default_vote_duration') {
-                this.details.ogValue += " (ms)"
-            }
-            else if (cmdArgs[0] == 'min_edu_duration') {
-                this.details.ogValue += " (ms)"
-            }
-        }
-        else if (this.voteType == 'addcrime' || this.voteType == 'removecrime') {
-            this.details = {
-                crime: cmdArgs[1]
-            }
+                let charge = options.getString('crime');
+                crimeExists = false;
+                for (let crime of variables['crimes']) {
+                    if (charge.toLowerCase() == crime.toLowerCase()) {
+                        charge = utils.upper(crime);
+                        crimeExists = true;
+                        break;
+                    }
+                }
+                if (!crimeExists) {
+                    interaction.reply({
+                        content: utils.upper(charge) + " is not a crime. Yet.",
+                        ephemeral: true
+                    });
+                    return;
+                }
+                this.details = {
+                    subject: this.details['subject'],
+                    reason: this.details['reason'],
+                    plaintiffId: interaction.member.id,
+                    defendantId: defendant.id,
+                    charge: charge,
+                    verdict: "--",
+                    archived: false
+                };
+                break;
+            case 'variable':
+                let varName = options.getString('variable');
+                this.details = {
+                    variable: varName,
+                    value: options.getNumber('set'),
+                    ogValue: amounts[varName],
+                    failReason: false
+                }
+                if (varName == 'DEFAULT_VOTE_DURATION') {
+                    this.details.value += "ms";
+                    this.details.ogValue += "ms";
+                }
+                if (this.details.value === this.details.ogValue) {
+                    interaction.reply({
+                        content: `${varName} is already set to ${this.details.value}.`,
+                        ephemeral: true
+                    });
+                    return;
+                }
+                break;
+            case 'addcrime':
+                this.details = { crime: utils.normalizeStr(options.getString('add')) };
+                break;
+
+            case 'removecrime':
+                let crime = utils.normalizeStr(options.getString('remove'));
+                crimeExists = false;
+                for (let _crime of variables['crimes']) {
+                    if (crime.toLowerCase() == _crime.toLowerCase()) {
+                        crimeExists = true;
+                        break;
+                    }
+                }
+                if (!crimeExists) {
+                    interaction.reply({
+                        content: `"${crime}" is not a crime.`,
+                        ephemeral: true
+                    });
+                    return;
+                }
+                this.details = { crime: crime };
+                break;
         }
 
         votes['latestVote']['id'] = this.voteId;
@@ -145,7 +144,7 @@ class Vote {
             votes['latestVote']['status'] = 'open';
         }
         utils.setJSON(votesPath, votes);
-        message.channel.send({ embeds: [this.embed(client)] });
+        interaction.reply({ embeds: [this.embed(client)] });
     }
     close(client) {
         let votesPath;
@@ -160,13 +159,17 @@ class Vote {
                 votesPath = appRoot.path + '/guilds/' + this.guildId + '/courtroom.json';
                 break;
         }
-        let votes = utils.getJSON(votesPath);
-        let guild = client.guilds.resolve(this.guildId);
-        let channel = guild.channels.resolve(this.channelId);
-        let msgPromise = channel.messages.fetch(this.messageId);
+        const votes = utils.getJSON(votesPath);
+        const guild = client.guilds.resolve(this.guildId);
+        if (guild == null) {
+            console.log("Removed from guild " + this.guildId + ", cannot close vote " + this.voteId + ".");
+            return;
+        }
+        const channel = guild.channels.resolve(this.channelId);
+        const msgPromise = channel.messages.fetch(this.messageId);
         msgPromise.then(msg => {
-            let reactions = Array.from(msg.reactions.cache.values());
-            let emojis = reactions.map(reaction => { return reaction.emoji.name; })
+            const reactions = Array.from(msg.reactions.cache.values());
+            const emojis = reactions.map(reaction => { return reaction.emoji.name; })
             for (let i = 0; i < emojis.length; i++) {
                 if (emojis[i] == '👍') {
                     this.votesUp = reactions[i].count - 1;
@@ -187,21 +190,19 @@ class Vote {
                     if (this.votesUp > this.votesDown && this.votesUp >= this.minVotes) {
                         this.passed = true;
                         this.details['verdict'] = 'Guilty';
-                        for (let userId of this.details['defendantIds']) {
-                            utils.makeTerrorist(client, msg.guild.id, userId);
-                        }
+                        utils.makeTerrorist(client, msg.guild.id, this.details['defendantId']);
                     }
                     else {
                         this.details['verdict'] = 'Not Guilty';
                     }
                     break;
                 case 'variable':
-                    if (this.votesUp > this.votesDown && this.votesUp >= this.minVotes) {
+                    if (this.votesUp > this.votesDown && (this.votesUp >= this.minVotes || this.details['variable'] == 'MIN_VOTES')) {
                         const variablesPath = appRoot.path + '/guilds/' + guild.id + '/variables.json';
                         const variables = utils.getJSON(variablesPath);
                         const amounts = variables['amounts'];
                         if (this.details['variable'] == 'minVotes' && this.votesUp + this.votesDown < this.details['value']) {
-                            this.details['reason'] = "The total number of votes must amount to the new value."
+                            this.details['failReason'] = "The total number of votes must amount to the new value."
                             break;
                         }
                         this.passed = true;
@@ -232,44 +233,47 @@ class Vote {
                     }
                     break;
             }
-            this.status = 'closed';
-            msg.edit({embeds: [this.embed(client)] });
-            this.details['archived'] = true;
+            if (msg.author.id == client.user.id) {
+                this.status = 'closed';
+                msg.edit({ embeds: [this.embed(client)] });
+                this.details['archived'] = true;
 
-            delete votes['open'][this.voteId];
-            votes['closed'][this.voteId] = this;
-            utils.setJSON(votesPath, votes);
+                delete votes['open'][this.voteId];
+                votes['closed'][this.voteId] = this;
+                utils.setJSON(votesPath, votes);
+            }
 
         }).catch(error => console.log(error));
     }
     embed(client) {
-        let embedVote = new MessageEmbed();
+        const embedVote = new MessageEmbed();
         switch (this.voteType) {
             case 'vote':
                 embedVote.setTitle("VOTE");
-                if (this.status == 'open') {
-                    embedVote.setDescription(this.details['desc']);  // add conditional?
-                    if (this.timeOpen != this.timeClose) {
+                embedVote.setDescription(this.details['subject']);
+                if (this.details['reason'] && this.details['reason'].replaceAll(" ", "") != "") {
+                    embedVote.addFields({
+                        name: "Reason:",
+                        value: this.details['reason'],
+                        inline: false
+                    });
+                }
+                if (this.status == 'open' && this.timeOpen != this.timeClose) {
                         embedVote.setFooter({ text: "Duration: " + this.durationStr });
-                    }
-                    return embedVote;
                 }
-                else if (this.status == 'closed') {
-                    embedVote.setDescription(this.details['desc'])
-                    if (this.timeOpen != this.timeClose) {
+                else if (this.status == 'closed' && this.timeOpen != this.timeClose) {
                         embedVote.setFooter({ text: this.passed ? "Vote Passed" : "Vote Failed" });
-                    }
-                    return embedVote;
                 }
+                return embedVote;
                 break;
             case 'variable':
                 embedVote.setTitle("VOTE");
                 embedVote.addFields(
                     {
-                        name: "__Set Variable__",
-                        value: this.details['variable']
-                            + "\nFrom: " + this.details['ogValue']
-                            + "\nTo: " + this.details['value'],
+                        name: "Set Variable:",
+                        value: `${this.details['variable']}`
+                            + "\nFrom " + this.details['ogValue']
+                            + " to " + this.details['value'],
                         inline: false
                     }
                 );
@@ -278,10 +282,10 @@ class Vote {
                     return embedVote;
                 }
                 else if (this.status == 'closed') {
-                    if (this.details['reason']) {
-                        let footer = {
+                    if (this.details['failReason']) {
+                        const footer = {
                             text: this.passed ? "Vote Passed" : "Vote Failed"
-                                + "\n" + this.details['reason']
+                                + "\n" + this.details['failReason']
                         };
                         embedVote.setFooter(footer);
                     }
@@ -292,66 +296,71 @@ class Vote {
                 }
                 break;
             case 'courtcase':
-                const defendants = this.details['defendantIds'].map(id => { return client.users.resolve(id); });
-                const defendantUsernames = defendants.map(user => { return user.username; });
-                embedVote.setTitle("The Party v. " + defendantUsernames);
-                embedVote.setFooter({ text: "Case Number: " + this.voteId + "\nBrought to you by The Party", iconURL: globals.imgParty });
+                const defendant = client.users.resolve(this.details['defendantId']);
+                embedVote.setTitle("The Party v. " + defendant.username);
+                embedVote.setFooter({ text: "Duration: " + this.durationStr + "\nCase #" + this.voteId, iconURL: globals.imgParty });
                 embedVote.addFields(
                     {
                         name: "Plaintiff:",
-                        // value: client.users.resolve(this.details['plaintiffId']),
-                        // value: this.details['plaintiffId'],
                         value: client.users.resolve(this.details['plaintiffId']).toString(),
                         inline: true
                     },
                     {
-                        name: "Defendants:",
-                        value: defendants.join("\n"),
+                        name: "Defendant:",
+                        value: defendant.toString(),
                         inline: true
                     }
                 )
-                
+
                 if (this.status == 'open') {
-                    
-                    embedVote.addFields(
-                        {
-                            name: "Charge:",
-                            value: this.details['charge'] + "\n"
-                                + "\nTrial Duration: " + this.durationStr
-                                + "\nMin Votes Guilty: " + this.minVotes,
-                            inline: false
-                        }
-                    );
-                    
+                    if (this.details['reason'] && this.details['reason'].replaceAll(" ", "") != "") {
+                        embedVote.addFields(
+                            {
+                                name: "Charge:",
+                                value: this.details['charge'],
+                                inline: this.details['charge'].length < 40 && this.details['reason'].length > 60 ? true : false
+                            },
+                            {
+                                name: "Reason:",
+                                value: this.details['reason'],
+                                inline: false
+                            }
+                        );
+                    }
+                    else {
+                        embedVote.addFields(
+                            {
+                                name: "Charge:",
+                                value: this.details['charge'],
+                                inline: false
+                            }
+                        );
+                    }
+
                 }
                 else if (this.status == 'closed') {
                     const dateOpen = new Date(this.timeOpen);
                     const dateClose = new Date(this.timeClose);
-                    embedVote.setDescription("closed");
-                    embedVote.addFields(
-                        {
-                            name: "Charge:",
-                            value: this.details['charge'],
+                    // embedVote.setDescription("`Closed`");
+                    embedVote.addFields({
+                        name: "Charge:",
+                        value: this.details['charge'],
+                        inline: this.details['charge'].length < 40 && this.details['reason'].length > 60 ? true : false
+                    });
+                    if (this.details['reason'] && this.details['reason'].replaceAll(" ", "") != "") {
+                        embedVote.addFields({
+                            name: "Reason:",
+                            value: this.details['reason'],
                             inline: false
-                        },
-                        {
-                            name: "Verdict:",
-                            value: this.details['verdict'],
-                            inline: false
-                        },
-                        {
-                            name: "Votes:",
-                            value: "NG: " + this.votesDown
-                                + ", G: " + this.votesUp
-                                + " (Min Needed: " + this.minVotes + ")"
-                                + "\n"
-                                + "\nOpen: " + dateOpen.toLocaleDateString() + " " + dateOpen.toLocaleTimeString()
-                                + "\nClose: " + dateClose.toLocaleDateString() + " " + dateClose.toLocaleTimeString(),
-                            inline: false
-                        }
-                    );
+                        });
+                    }
+                    embedVote.addFields({
+                        name: "Verdict:",
+                        value: this.details['verdict'] + " — NG: " + this.votesDown + ", G: " + this.votesUp,
+                        inline: false
+                    });
                     if (this.details['verdict'] == "Guilty") { embedVote.setColor("#ff9f49") }
-                    else { embedVote.setColor("#70c2e9") }
+                    else { embedVote.setColor("#70c2e9"); }
                 }
                 return embedVote;
             case 'addcrime':
@@ -359,8 +368,8 @@ class Vote {
                 embedVote.setTitle("VOTE");
                 embedVote.addFields(
                     {
-                        name: (this.voteType == 'addcrime') ? "__Add Crime__" : "__Remove Crime__",
-                        value: utils.upper(this.details['crime']),
+                        name: (this.voteType == 'addcrime') ? "Add Crime:" : "Remove Crime:",
+                        value: this.details['crime'],
                         inline: false
                     }
                 );
@@ -390,20 +399,20 @@ class Vote {
             details: this.details
         };
     }
-    assign(voteData){
-        let jsonkeys = this.json();
+    assign(voteData) {
+        const jsonkeys = this.json();
         for (let key in jsonkeys) { this[key] = voteData[key]; }
     }
 }
 
 module.exports = {
     new() {
-        let vote = new Vote;
+        const vote = new Vote;
         return vote;
     },
-    open(client, voteType, message, cmdArgs) { 
-        let vote = new Vote;
-        vote.open(client, voteType, message, cmdArgs);
+    open(client, voteType, interaction) {
+        const vote = new Vote;
+        vote.open(client, voteType, interaction);
         return vote;
     },
     handleSelfEmbed(client, message) {
@@ -411,17 +420,18 @@ module.exports = {
         function beginVoting(voteType) {
             message.react('👍');
             message.react('👎');
-    
+
             let votesPath;
             switch (voteType) {
                 case 'vote': votesPath = appRoot.path + '/guilds/' + message.guild.id + '/votes.json'; break;
                 case 'courtcase': votesPath = appRoot.path + '/guilds/' + message.guild.id + '/courtroom.json'; break;
             }
-            let votes = utils.getJSON(votesPath);
-            let latestStatus = votes['latestVote']['status'];
-            let latestId = votes['latestVote']['id'];
-            let voteData = votes[latestStatus][latestId];
-            let vote = new Vote;
+            const votes = utils.getJSON(votesPath);
+            const latestStatus = votes['latestVote']['status'];
+            const latestId = votes['latestVote']['id'];
+            const voteData = votes[latestStatus][latestId];
+            voteData.messageId = message.id;
+            const vote = new Vote;
             vote.assign(voteData);
             vote.messageId = message.id;
             if (vote.status == 'open') { votes['open'][votes['latestVote']['id']]['messageId'] = message.id; }
@@ -431,12 +441,12 @@ module.exports = {
         }
         if (typeof (message.embeds[0]['title']) == 'undefined') { return false; }
         if (message.embeds[0]['title'] && message.embeds[0]['title'].startsWith("The Party v.")) {
-            let vote = beginVoting('courtcase');
+            const vote = beginVoting('courtcase');
             if (!vote) { return; }
             schedule.scheduleJob(vote.timeClose, function () { vote.close(client); });
         }
         else if (message.embeds[0]['title'] && message.embeds[0]['title'].startsWith("VOTE")) {
-            let vote = beginVoting('vote');
+            const vote = beginVoting('vote');
             if (!vote) { return; }
             if (vote.timeOpen != vote.timeClose) {
                 schedule.scheduleJob(vote.timeClose, function () { vote.close(client); });

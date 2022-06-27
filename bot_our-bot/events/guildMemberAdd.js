@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'guildMemberAdd',
 	once: false,
-	exec(client, member) {
+	execute(client, member) {
 		if (member.user.bot == false) {
 			let channel = client.channels.resolve(member.guild.systemChannelId);
 			setTimeout(() => {

@@ -1,47 +1,41 @@
 const appRoot = require('app-root-path');
+const { isComrade } = require('../../global/utils');
 const utils = require(appRoot.path + '/global/utils.js');
-const globals = require(appRoot.path + '/global/globals.js');
 const Vote = require (appRoot.path + '/global/objects/vote.js');
+const reactionAffirmations = utils.getLines("/global/lists/reactions_affirmations.txt");
 
 module.exports = {
     name: 'messageCreate',
     once: false,
-    exec(client, message) {
+    execute(client, message) {
 
-        // commands
-        if (message.content.startsWith(globals.cmdPrefix)) {
-            let cmdArgs = message.content.slice(globals.cmdPrefix.length).trim().split(' ');
-            let cmd = cmdArgs.shift();
-            if (message.channel.type != 'dm') {
-                utils.checkCreateGuildFiles(message.guild.id);
-                if (client.functions.get('handleUnComrades').exec(client, message, cmd, cmdArgs)) {
-                    return;
-                }
-            }
-            try { client.commands.get(cmd).exec(client, message, cmdArgs); }
-            catch (error) {console.log(error); }
-        }
-        
-        // self embeds
-        else if (message.embeds.length && message.author.id == client.user.id) {
+        // handle self embeds
+        if (message.embeds.length && message.author.id == client.user.id) {
             Vote.handleSelfEmbed(client, message);
+            return;
         }
+
+        if (message.author.bot) { return; }
 
         // handle wrongthink
-        else if (!message.author.bot && utils.searchForLine(message, utils.getLines("/global/lists/++wrongthink.txt"))) {
-            message.delete();
-            if (utils.isComrade(client, message.member)) {
+        else if (utils.searchForLine(message, utils.getLines("/global/lists/phrases_wrongthink.txt"))) {
+            const isComrade = utils.isComrade(client, message.member);
+            if (isComrade) {
                 utils.makeTerrorist(client, message.guild.id, message.author.id);
-                message.channel.send(message.author.toString() + " has been sent to re-education.");
-                console.log(message.author.username + " has been sent to re-education.");
+                message.reply(message.author.toString() + " has been sent to re-education.");
+            }
+            else if (!isComrade && !utils.isTerrorist(client, message.member)) {
+                utils.makeTerrorist(client, message.guild.id, message.author.id);
+                message.reply(message.author.toString() + " is now a terrorist.");
             }
         }
         
-
         // handle goodthink
-        else if (!message.author.bot && utils.searchForLine(message, utils.getLines("/global/lists/++goodthink.txt"))) {
-            utils.makeComrade(client, message.guild.id, message.author.id);
+        else if (utils.searchForLine(message, utils.getLines("/global/lists/phrases_goodthink.txt"))) {
+            if (!utils.isComrade(client, message.member)) {
+                utils.makeComrade(client, message.guild.id, message.author.id);
+            }
+            message.react(utils.randItem(reactionAffirmations));
         }
-        
     }
 }

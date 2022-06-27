@@ -2,16 +2,16 @@ const appRoot = require('app-root-path');
 
 module.exports = {
     name: 'checkCreateGuildFiles',
-    exec(guildId) {
-        let guildPath = appRoot.path + '/guilds/' + guildId;
+    execute(guildId) {
+        const guildPath = appRoot.path + '/guilds/' + guildId;
         if (!fs.existsSync(guildPath)) {
             fs.mkdirSync(guildPath);
         }
-        let files = {
+        const files = {
             "variables.json": {
                 "amounts": {
-                    "min_votes": 1,
-                    "default_vote_duration": 120000
+                    "MIN_VOTES": 1,
+                    "DEFAULT_VOTE_DURATION": '120000ms'
                 },
                 "crimes": [
                     "wrongthink",

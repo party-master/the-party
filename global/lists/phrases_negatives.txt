@@ -11,7 +11,7 @@ isnt
 wont
 never
 not
-no
+ no
 noo
 nooo
 noooo

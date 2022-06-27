@@ -7,7 +7,7 @@ const fs = require('fs');
 module.exports = {
     name: 'checkOpenVotes',
     description: 'Checks for and closes open votes',
-    exec(client) {
+    execute(client) {
         const files_guilds = fs.readdirSync(appRoot.path + '/guilds/');
         for (guildId of files_guilds) {
             for (pathSuffix of ['/votes.json', '/courtroom.json']) {
@@ -17,8 +17,8 @@ module.exports = {
                 for (let voteId of Object.keys(votes['open'])) {
                     let vote = Vote.new();
                     vote.assign(votes['open'][voteId]);
-                    if (vote.time_close < timeNow) { vote.close(client); }
-                    else { schedule.scheduleJob(vote.time_close, function () { vote.close(client); }); }
+                    if (vote.timeClose < timeNow) { vote.close(client); }
+                    else { schedule.scheduleJob(vote.timeClose, function () { vote.close(client); }); }
                 }
             }
         }

@@ -10,6 +10,7 @@ bot_re-education/config.json
 # Resources
 res/
 bot_testo/
+bot_testo_backup/
 
 # Guild specific
 guilds
