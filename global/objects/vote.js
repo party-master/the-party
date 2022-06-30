@@ -1,7 +1,6 @@
 const appRoot = require('app-root-path');
-const { Discord, MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
+const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
-const globals = require(appRoot.path + '/global/globals.js');
 const schedule = require('node-schedule');
 
 class Vote {
@@ -10,6 +9,13 @@ class Vote {
         const { commandName, options } = interaction;
         const subject = options.getString('subject');
         const reason = options.getString('reason');
+        if (subject != null && subject.length > 1000 || reason != null && reason.length) {
+            interaction.reply({
+                content: "\'Subject\' and \'Reason\' fields must be 1000 or fewer characters.",
+                ephemeral: true
+            });
+            return;
+        }
 
         const variablesPath = appRoot.path + '/guilds/' + interaction.guild.id + '/variables.json'
         const variables = utils.getJSON(variablesPath);
@@ -79,7 +85,6 @@ class Vote {
                     return;
                 }
                 this.details = {
-                    subject: this.details['subject'],
                     reason: this.details['reason'],
                     plaintiffId: interaction.member.id,
                     defendantId: defendant.id,
@@ -109,7 +114,15 @@ class Vote {
                 }
                 break;
             case 'addcrime':
-                this.details = { crime: utils.normalizeStr(options.getString('add')) };
+                let newCrime = options.getString('add');
+                if (newCrime.length > 20) {
+                    interaction.reply({
+                        content: "Crime names must be 20 or fewer characters.",
+                        ephemeral: true
+                    });
+                    return;
+                }
+                this.details = { crime: utils.normalizeStr(newCrime) };
                 break;
 
             case 'removecrime':
@@ -144,7 +157,7 @@ class Vote {
             votes['latestVote']['status'] = 'open';
         }
         utils.setJSON(votesPath, votes);
-        interaction.reply({ embeds: [this.embed(client)] });
+        interaction.reply({ embeds: [this.embed(client, interaction.guildId)] });
     }
     close(client) {
         let votesPath;
@@ -166,8 +179,7 @@ class Vote {
             return;
         }
         const channel = guild.channels.resolve(this.channelId);
-        const msgPromise = channel.messages.fetch(this.messageId);
-        msgPromise.then(msg => {
+        channel.messages.fetch(this.messageId).then(msg => {
             const reactions = Array.from(msg.reactions.cache.values());
             const emojis = reactions.map(reaction => { return reaction.emoji.name; })
             for (let i = 0; i < emojis.length; i++) {
@@ -235,7 +247,7 @@ class Vote {
             }
             if (msg.author.id == client.user.id) {
                 this.status = 'closed';
-                msg.edit({ embeds: [this.embed(client)] });
+                msg.edit({ embeds: [this.embed(client, msg.guildId)] });
                 this.details['archived'] = true;
 
                 delete votes['open'][this.voteId];
@@ -243,9 +255,12 @@ class Vote {
                 utils.setJSON(votesPath, votes);
             }
 
-        }).catch(error => console.log(error));
+        }).catch(() => {
+            delete votes['open'][this.voteId];
+            utils.setJSON(votesPath, votes);
+        });
     }
-    embed(client) {
+    embed(client, guildId) {
         const embedVote = new MessageEmbed();
         switch (this.voteType) {
             case 'vote':
@@ -265,7 +280,6 @@ class Vote {
                         embedVote.setFooter({ text: this.passed ? "Vote Passed" : "Vote Failed" });
                 }
                 return embedVote;
-                break;
             case 'variable':
                 embedVote.setTitle("VOTE");
                 embedVote.addFields(
@@ -296,9 +310,10 @@ class Vote {
                 }
                 break;
             case 'courtcase':
+                let guild = client.guilds.resolve(this.guildId);
                 const defendant = client.users.resolve(this.details['defendantId']);
-                embedVote.setTitle("The Party v. " + defendant.username);
-                embedVote.setFooter({ text: "Duration: " + this.durationStr + "\nCase #" + this.voteId, iconURL: globals.imgParty });
+                embedVote.setTitle(`${guild.name} v. ` + defendant.username);
+                embedVote.setFooter({ text: "Duration: " + this.durationStr + "\nCase #" + this.voteId, iconURL: guild.iconURL() });
                 embedVote.addFields(
                     {
                         name: "Plaintiff:",
@@ -339,9 +354,6 @@ class Vote {
 
                 }
                 else if (this.status == 'closed') {
-                    const dateOpen = new Date(this.timeOpen);
-                    const dateClose = new Date(this.timeClose);
-                    // embedVote.setDescription("`Closed`");
                     embedVote.addFields({
                         name: "Charge:",
                         value: this.details['charge'],
@@ -440,7 +452,7 @@ module.exports = {
             return vote;
         }
         if (typeof (message.embeds[0]['title']) == 'undefined') { return false; }
-        if (message.embeds[0]['title'] && message.embeds[0]['title'].startsWith("The Party v.")) {
+        if (message.embeds[0]['title'] && message.embeds[0]['title'].startsWith(`${client.guilds.resolve(message.guildId).name} v.`)) {
             const vote = beginVoting('courtcase');
             if (!vote) { return; }
             schedule.scheduleJob(vote.timeClose, function () { vote.close(client); });

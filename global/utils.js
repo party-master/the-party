@@ -7,6 +7,10 @@ if (!Array.prototype.last) {
     };
 };
 
+function clamp(num, min, max) {
+    return Math.min(Math.max(num, min), max);
+}
+
 function createComradesRole(guild) {
     return guild.roles.create({
         name: 'Comrades',
@@ -150,19 +154,19 @@ function searchForLine(message, list) {
 
 function isComrade(client, member) {
     const guild = client.guilds.resolve(member.guild.id);
-    let roleComrade;
-    try { roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id; }
-    catch (error) { roleComrade = createComradesRole(member.guild); roleComrade.then(res => { console.log(res) }); }
-    if (member.roles.cache.has(roleComrade)) { return true; }
+    let roleComrades;
+    try { roleComrades = guild.roles.cache.find(role => role.name === 'Comrades').id; }
+    catch (error) { roleComrades = createComradesRole(member.guild); roleComrades.then(res => { console.log(res) }); }
+    if (member.roles.cache.has(roleComrades)) { return true; }
     else { return false; }
 }
 
 function isTerrorist(client, member) {
     const guild = client.guilds.resolve(member.guild.id);
-    let roleTerrorist;
-    try { roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id; }
-    catch (error) { roleTerrorist = createTerroristsRole(member.guild); roleTerrorist.then(res => { console.log(res) }); }
-    if (member.roles.cache.has(roleTerrorist)) { return true; }
+    let roleTerrorists;
+    try { roleTerrorists = guild.roles.cache.find(role => role.name === 'Terrorists').id; }
+    catch (error) { roleTerrorists = createTerroristsRole(member.guild); roleTerrorists.then(res => { console.log(res) }); }
+    if (member.roles.cache.has(roleTerrorists)) { return true; }
     else { return false; }
 }
 
@@ -170,10 +174,10 @@ function makeComrade(client, guildId, userResolvable) {
     const guild = client.guilds.resolve(guildId);
     guild.members.fetch(userResolvable)
         .then(member => {
-            const roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
-            const roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
-            member.roles.remove(roleTerrorist);
-            member.roles.add(roleComrade);
+            const roleComrades = guild.roles.cache.find(role => role.name === 'Comrades').id;
+            const roleTerrorists = guild.roles.cache.find(role => role.name === 'Terrorists').id;
+            member.roles.remove(roleTerrorists);
+            member.roles.add(roleComrades);
         })
         .catch(console.error);
 }
@@ -183,10 +187,10 @@ function makeTerrorist(client, guildId, userResolvable) {
     guild.members.fetch(userResolvable)
         .then(member => {
             if (member.id == '716039200864206878') { return; }  // partymaster
-            const roleComrade = guild.roles.cache.find(role => role.name === 'Comrades').id;
-            const roleTerrorist = guild.roles.cache.find(role => role.name === 'Terrorists').id;
-            member.roles.remove(roleComrade);
-            member.roles.add(roleTerrorist);
+            const roleComrades = guild.roles.cache.find(role => role.name === 'Comrades').id;
+            const roleTerrorists = guild.roles.cache.find(role => role.name === 'Terrorists').id;
+            member.roles.remove(roleComrades);
+            member.roles.add(roleTerrorists);
         })
         .catch(console.error);
 }
@@ -240,6 +244,8 @@ function normalizeStr(str) {
 }
 
 module.exports = {
+
+    clamp(num, min, max) { return clamp(num, min, max); },
 
     randInteger(min, max) { return randInteger(min, max); },
 

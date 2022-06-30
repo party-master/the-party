@@ -1,5 +1,4 @@
 const appRoot = require('app-root-path');
-const { isComrade } = require('../../global/utils');
 const utils = require(appRoot.path + '/global/utils.js');
 const Vote = require (appRoot.path + '/global/objects/vote.js');
 const reactionAffirmations = utils.getLines("/global/lists/reactions_affirmations.txt");

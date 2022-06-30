@@ -42,7 +42,7 @@ module.exports = {
         const remove = options.getString('remove');
         const isHidden = options.getBoolean('hidden');
         const variablesPath = appRoot.path + '/guilds/' + interaction.guildId + '/variables.json';
-        const crimes = utils.getJSON(variablesPath)['crimes'];
+        const crimes = utils.getJSON(variablesPath)['crimes'].sort();
 
         if (add == null && remove == null) {
             let crimesEmbed = new MessageEmbed();
@@ -56,30 +56,31 @@ module.exports = {
                 });
             }
             else {
+                let numColumns = utils.clamp(Math.ceil(crimes.length / cutoffSingleCol), 1, 3);  // #HC, 3 Columns
+                let colLength = Math.ceil(crimes.length / numColumns);
                 let counter = 0;
-                let crimesStrCol1 = "";
-                let crimesStrCol2 = "";
-                for (let crime of crimes.sort()) {
-                    if (counter + 1 <= crimes.length / 2) {
-                        crimesStrCol1 += "\n" + bulletPt + utils.upper(crime);
+                let columns = Array();
+                console.log(colLength);
+                for (let i = 0; i < numColumns; i++) {
+                    let thisColLength = colLength;
+                    let crimeStrCol = "";
+                    for (let j = 0; j < crimes.length; j++) {
+                        if (!crimes[counter]) { break; }
+                        crimeStrCol += "\n" + bulletPt + utils.upper(crimes[counter]);
+                        counter += 1;
+                        if (j + 1 >= thisColLength) {
+                            columns.push(crimeStrCol);
+                            break;
+                        }
                     }
-                    else {
-                        crimesStrCol2 += "\n" + bulletPt + utils.upper(crime);
-                    }
-                    counter += 1;
+                    crimesEmbed.addFields(
+                        {
+                            name: i == 0 ? "**Crimes**" : '‍‍',
+                            value: crimeStrCol,
+                            inline: true
+                        },
+                    );
                 }
-                crimesEmbed.addFields(
-                    {
-                        name: "**Crimes**",
-                        value: crimesStrCol1,
-                        inline: true
-                    },
-                    {
-                        name: '‍‍',
-                        value: crimesStrCol2,
-                        inline: true
-                    }
-                );
             }
             interaction.reply({
                 embeds: [crimesEmbed],

@@ -15,13 +15,15 @@ module.exports = {
 
         // handle slash commands
         else if (interaction.isCommand()) {
-            client.commands.get(commandName).execute(client, interaction);
+            if (commandName == 'help' || !client.functions.get('handleUncomrades').execute(client, interaction))  {
+                client.commands.get(commandName).execute(client, interaction);
+            }
         }
 
         // handle buttons
         else if (interaction.isButton()) {
-            try { client.commands.get(commandName).execute(client, interaction); }
-            catch (error) { client.commands.get(interaction.customId.split('_')[0]).execute(client, interaction); }
+            try { client.functions.get(interaction.customId).execute(client, interaction); }
+            catch (error) { }
         }
     }
 }

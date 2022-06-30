@@ -3,9 +3,11 @@ const appRoot = require('app-root-path');
 module.exports = {
     name: 'checkCreateGuildFiles',
     execute(guildId) {
+        let alreadyExists = true;
         const guildPath = appRoot.path + '/guilds/' + guildId;
         if (!fs.existsSync(guildPath)) {
             fs.mkdirSync(guildPath);
+            alreadyExists = false;
         }
         const files = {
             "variables.json": {
@@ -34,7 +36,21 @@ module.exports = {
                 },
                 open: {},
                 closed: {}
-            }
+            },
+            "guildConfig.json": {
+                roleComrades: {
+                    name: false,
+                    id: false
+                },
+                roleTerrorists: {
+                    name: false,
+                    id: false
+                },
+                roleAdmin: {
+                    name: false,
+                    id: false
+                }
+            },
         }
         for (i = 0; i < Object.keys(files).length; i++) {
             let file = Object.keys(files)[i];
@@ -43,5 +59,6 @@ module.exports = {
                 fs.appendFileSync(path, JSON.stringify(files[file], null, 4), function (err) { });
             }
         }
+        return alreadyExists;
     }
 }

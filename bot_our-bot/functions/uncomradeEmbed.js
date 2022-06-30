@@ -1,9 +1,8 @@
 const appRoot = require('app-root-path');
 const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
-const globals = require(appRoot.path + '/global/globals.js');
 
 const uncomradeEmbed = new MessageEmbed();
-uncomradeEmbed.setThumbnail(globals.imgParty);
+// uncomradeEmbed.setThumbnail(globals.imgParty);
 uncomradeEmbed.addFields(
     {
         name: 'You are not a Comrade',
