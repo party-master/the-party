@@ -28,7 +28,7 @@ module.exports = {
         for (let guildId of guildIds) {
             let guild = client.guilds.cache.get(guildId);
             if (!guild) {
-                // sconsole.log(`Error - ready.js: Not in guild with id ${guildId}`);
+                // console.log(`Error - ready.js: Not in guild with id ${guildId}`);
                 continue;
             }
             

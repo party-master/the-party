@@ -12,6 +12,9 @@ res/
 bot_testo/
 bot_testo_backup/
 
+# Outputs
+output/
+
 # Guild specific
 guilds
 
