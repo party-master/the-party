@@ -60,7 +60,6 @@ module.exports = {
                 let colLength = Math.ceil(crimes.length / numColumns);
                 let counter = 0;
                 let columns = Array();
-                console.log(colLength);
                 for (let i = 0; i < numColumns; i++) {
                     let thisColLength = colLength;
                     let crimeStrCol = "";

@@ -17,6 +17,8 @@ module.exports = {
         if (message.author.bot) { return; }
 
         // handle wrongthink
+
+        /*
         else if (utils.searchForLine(message, utils.getLines("/global/lists/phrases_wrongthink.txt"))) {
             const isComrade = utils.isComrade(client, message.member);
             if (isComrade) {
@@ -28,6 +30,7 @@ module.exports = {
                 message.reply(message.author.toString() + " is now a terrorist.");
             }
         }
+        */
         
         // handle goodthink
         else if (utils.searchForLine(message, utils.getLines("/global/lists/phrases_goodthink.txt"))) {

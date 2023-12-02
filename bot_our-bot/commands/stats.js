@@ -6,7 +6,7 @@ const utils = require(appRoot.path + '/global/utils.js');
 
 function embed(interaction, user, stats, isHidden) {
     const statsEmbed = new MessageEmbed();
-    statsEmbed.setTitle("**" + user.username + "#" + user.discriminator + "**");
+    statsEmbed.setTitle("**" + user.username + "**");
 
     let crimeKeywords = Object.keys(stats.crimes);
     crimeKeywords.sort();

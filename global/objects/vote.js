@@ -11,7 +11,7 @@ class Vote {
         const reason = options.getString('reason');
         if (subject != null && subject.length > 1000 || reason != null && reason.length) {
             interaction.reply({
-                content: "\'Subject\' and \'Reason\' fields must be 1000 or fewer characters.",
+                content: "\'Subject\' and \'Reason\' fields must be 1000 characters or less.",
                 ephemeral: true
             });
             return;
@@ -117,7 +117,7 @@ class Vote {
                 let newCrime = options.getString('add');
                 if (newCrime.length > 20) {
                     interaction.reply({
-                        content: "Crime names must be 20 or fewer characters.",
+                        content: "Crime names must be 20 characters or less.",
                         ephemeral: true
                     });
                     return;

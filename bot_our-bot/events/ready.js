@@ -6,7 +6,7 @@ module.exports = {
 
         let guildIds = [
             '711747538033573929',
-            '712184607860326400'
+            '712184607860326400',
         ];
 
         // delete application commands
@@ -29,7 +29,7 @@ module.exports = {
         for (let guildId of guildIds) {
             let guild = client.guilds.cache.get(guildId);
             if (!guild) {
-                console.log(`Error - ready.js: Not in guild with id ${guildId}`);
+                // console.log(`Error - ready.js: Not in guild with id ${guildId}`);
                 continue;
             }
             

@@ -5,13 +5,13 @@ const slashOptions = require(appRoot.path + '/global/slashOptions.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const fs = require('fs');
 const {
-	joinVoiceChannel,
-	createAudioPlayer,
-	createAudioResource,
-	entersState,
-	StreamType,
-	AudioPlayerStatus,
-	VoiceConnectionStatus,
+    joinVoiceChannel,
+    createAudioPlayer,
+    createAudioResource,
+    entersState,
+    StreamType,
+    AudioPlayerStatus,
+    VoiceConnectionStatus,
 } = require('@discordjs/voice');
 
 const editEmbed = true;
@@ -73,10 +73,12 @@ module.exports = {
                         rows.push(row);
                         if (counter >= sfxFiles.length) { break; }
                     }
-                    if (counter <= rowLength * 5) { interaction.reply({
-                        embeds: editEmbed ? [ new MessageEmbed().setDescription(`**Sound Effects**`) ] : [],
-                        components: rows
-                    }); }
+                    if (counter <= rowLength * 5) {
+                        interaction.reply({
+                            embeds: editEmbed ? [new MessageEmbed().setDescription(`**Sound Effects**`)] : [],
+                            components: rows
+                        });
+                    }
                     else { interaction.channel.send({ components: rows }); }
                 }
             }
@@ -113,7 +115,7 @@ module.exports = {
                     player.play(res);
                     player.on(AudioPlayerStatus.Playing, () => { global.lastTimePlayed = Date.now(); })
                     player.on(AudioPlayerStatus.Idle, () => {
-                        setTimeout(() => { 
+                        setTimeout(() => {
                             if (Date.now() > global.lastTimePlayed + voiceTimeout) { connection.disconnect(); }
                         }, voiceTimeout + 1);
                     });
@@ -148,20 +150,22 @@ module.exports = {
                 player.play(res);
                 player.on(AudioPlayerStatus.Playing, () => { global.lastTimePlayed = Date.now(); })
                 let now = new Date();
-                let timecode = now.toLocaleDateString().slice(0,-5) + ", " + now.toLocaleTimeString();
+                let timecode = now.toLocaleDateString().slice(0, -5) + ", " + now.toLocaleTimeString();
                 if (editEmbed && interaction.message.type == 'APPLICATION_COMMAND') {
                     interaction.message.edit({
                         embeds: [
                             new MessageEmbed()
                                 .setDescription(`**Sound Effects**`)
-                                .setFooter({ text:
-                                    `▶︎ ${utils.upper(interaction.customId.replace('sfx_', ''))}`
-                                    + ` — ${interaction.user.username + '#' + interaction.user.discriminator}`
-                                    + ` — ${timecode}`
+                                .setFooter({
+                                    text:
+                                        `▶︎ ${utils.upper(interaction.customId.replace('sfx_', ''))}`
+                                        + ` — ${interaction.user.username}`
+                                        + ` — ${timecode}`
                                 })]
-                });}
+                    });
+                }
                 player.on(AudioPlayerStatus.Idle, () => {
-                    setTimeout(() => { 
+                    setTimeout(() => {
                         if (Date.now() > global.lastTimePlayed + voiceTimeout) {
                             connection.disconnect();
                         }

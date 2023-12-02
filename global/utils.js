@@ -243,6 +243,35 @@ function normalizeStr(str) {
     return upper(str.toLowerCase());
 }
 
+function makeEmbedColumns(cutoffSingleCol, minCols, maxCols, a, title, embed) {
+    let bulletPt = "› ";
+    let numColumns = clamp(Math.ceil(a.length / cutoffSingleCol), minCols, maxCols);
+    let colLength = Math.ceil(a.length / numColumns);
+    let counter = 0;
+    let columns = Array();
+    for (let i = 0; i < numColumns; i++) {
+        let thisColLength = colLength;
+        let strCol = "";
+        for (let j = 0; j < a.length; j++) {
+            if (!a[counter]) { break; }
+            strCol += "\n" + bulletPt + upper(a[counter]);
+            counter += 1;
+            if (j + 1 >= thisColLength) {
+                columns.push(strCol);
+                break;
+            }
+        }
+        embed.addFields(
+            {
+                name: i == 0 ? title : '‍‍',
+                value: strCol,
+                inline: true
+            },
+        );
+    }
+    return embed;
+}
+
 module.exports = {
 
     clamp(num, min, max) { return clamp(num, min, max); },
@@ -291,4 +320,7 @@ module.exports = {
 
     normalizeStr(str) { return normalizeStr(str); },
 
+    makeEmbedColumns(cutoffSingleCol, minCols, maxCols, a, title, embed) {
+        return makeEmbedColumns(cutoffSingleCol, minCols, maxCols, a, title, embed);
+    }
 }
