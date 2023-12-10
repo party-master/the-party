@@ -30,7 +30,8 @@ function embedGuideFields(embed) {
                 + "1. Install Thunderstore from thunderstore.io"
                 + "\n2. Run Thunderstore app, select Lethal Company, create/select a profile."
                 + "\n3. Search for and install the mods listed above as well as BepInEx."
-                + "\n4. Launch from the \"Modded\" button in Thunderstore to run Lethal Company with mods.",
+                + "\n4. Launch from the \"Modded\" button in Thunderstore to run Lethal Company with mods."
+                + "\n4. Custom Boombox Music (Optional): grab mp3s from the zip. See \"Custom Boombox Music\" page on Thunderstore for more info.",
             inline: false
         },
         {
@@ -60,7 +61,7 @@ module.exports = {
         let user = interaction.user;
         let isHidden = options.getBoolean('hidden');
         let hasGuide = options.getBoolean('guide');
-        // await interaction.deferReply({ ephemeral: isHidden });
+        await interaction.deferReply({ ephemeral: isHidden });
 
         // check/create output folder
         outputDir = appRoot + "\\output\\LethalCompany\\";
@@ -72,7 +73,7 @@ module.exports = {
         // check/get mod config
         let modConfigPath = outputDir + "lc-mods-config.json";
         if (!fs.existsSync(modConfigPath)) {
-            interaction.reply({
+            interaction.editReply({
                 content: "lc-mods-config.json not found. Create one with entry \"modSrc\": [path]",
                 ephemeral: true
             });
@@ -124,7 +125,7 @@ module.exports = {
         filenames.forEach(async (filename) => {
             src = modConfig.modSrc + filename;
             if (!fs.existsSync(src)) {
-                await interaction.reply({
+                await interaction.editReply({
                     content: filename + " not in source folder.",
                     ephemeral: true
                 });
@@ -143,11 +144,13 @@ module.exports = {
         let pluginsFolder = modDest + "\\BepInEx\\plugins\\";
         let modNames = [];
         fs.readdirSync(pluginsFolder).forEach((pluginFolder) => {
-            modNames.push(utils.getJSON(pluginsFolder + pluginFolder + "\\manifest.json").name);
+            try { modNames.push(utils.getJSON(pluginsFolder + pluginFolder + "\\manifest.json").name); }
+            catch { modNames.push("[ERR-N] " + pluginFolder); }
         });
         let versionNums = [];
         fs.readdirSync(pluginsFolder).forEach((pluginFolder) => {
-            versionNums.push(utils.getJSON(pluginsFolder + pluginFolder + "\\manifest.json").version_number);
+            try { versionNums.push(utils.getJSON(pluginsFolder + pluginFolder + "\\manifest.json").version_number); }
+            catch { modNames.push("[ERR-V] " + pluginFolder); }
         });
         modNamesVersions = modNames.map((modName, index) => modName + " (" + versionNums[index] + ")");
 
@@ -161,19 +164,19 @@ module.exports = {
                 inline: true
             });
         }
-        else { utils.makeEmbedColumns(cutoffSingleCol, 1, 3, modNamesVersions, "**Lethal Company Mods**", modsEmbed); }
+        else { utils.makeEmbedColumns(cutoffSingleCol, 1, 2, modNamesVersions, "**Lethal Company Mods**", modsEmbed); }
         if (hasGuide) { embedGuideFields(modsEmbed);}
 
         // zip and send
         await zip.zip(modDest, modDest + ".zip")
         try {   
-            await interaction.reply({
+            await interaction.editReply({
                 embeds: [modsEmbed],
                 files: [modDest + ".zip"],
                 // files: outputDir + "Newfolder.zip",
                 ephemeral: isHidden == null ? false : isHidden,
             }).catch((err) => {
-                interaction.reply({
+                interaction.editReply({
                     embeds: hasGuide ? [modsEmbed] : null,
                     content: "Potentially rate limited. Try again later for zip file.",
                     ephemeral: true
@@ -182,7 +185,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            await interaction.reply({
+            await interaction.editReply({
                 content: "An error occurred.",
                 ephemeral: true,
             });
@@ -194,11 +197,7 @@ module.exports = {
 
         // update/create outputlog.txt
         let outlogPath = outputDir + "log-output.txt";
-        //let fd = fs.openSync(outlogPath, 'a', function (err, file) {});
         let newlogtxt = date.toLocaleString().replace(" ", "") + " — " + user.id + " (" + user.username + ") " + "generated " + modFilename;
-        //fs.appendFileSync(outlogPath, newlogtxt + "\n", function (err, file) {});
-        //fs.close(fd);
-
         var logStream = fs.createWriteStream(outlogPath, {flags: 'a'});
         logStream.write(newlogtxt + "\n");
         logStream.end();
