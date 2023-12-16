@@ -1,12 +1,12 @@
 const appRoot = require('app-root-path');
-const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
+const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const slashOptions = require(appRoot.path + '/global/slashOptions.js');
 const utils = require(appRoot.path + '/global/utils.js');
 
 function embed(interaction, user, stats, isHidden) {
-    const statsEmbed = new MessageEmbed();
-    statsEmbed.setTitle("**" + user.username + "**");
+    const statsEmbed = new EmbedBuilder();
+    statsEmbed.setTitle("**" + user.displayName + "**");
 
     let crimeKeywords = Object.keys(stats.crimes);
     crimeKeywords.sort();
@@ -75,7 +75,6 @@ module.exports = {
         const courtcases = utils.getJSON(courtcasesPath);
         const votesPath = appRoot.path + '/guilds/' + interaction.guild.id + '/votes.json';
         const votes = utils.getJSON(votesPath);
-        console.log(courtcasesPath);
 
         const stats = {
             crimes: {},

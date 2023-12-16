@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
+const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const slashOptions = require(appRoot.path + '/global/slashOptions.js');
 const utils = require(appRoot.path + '/global/utils.js');
@@ -46,7 +46,7 @@ module.exports = {
         const crimes = utils.getJSON(variablesPath)['crimes'].sort();
 
         if (add == null && remove == null) {
-            let crimesEmbed = new MessageEmbed();
+            let crimesEmbed = new EmbedBuilder();
             if (crimes.length < cutoffSingleCol) {
                 let crimeElems = crimes.map(crime => bulletPt + utils.upper(crime)).sort();
                 let crimesStr = crimeElems.join("\n");

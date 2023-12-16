@@ -1,11 +1,13 @@
 const appRoot = require('app-root-path');
-const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
+const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const slashOptions = require(appRoot.path + '/global/slashOptions.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const fs = require('fs');
 const path = require('path');
 const zip = require('zip-a-folder');
+
+outputDir = appRoot + "\\output\\LethalCompany\\";
 
 function copyRecursiveSync(src, dest) {
     let exists = fs.existsSync(src);
@@ -155,7 +157,7 @@ module.exports = {
 
         // create message embed
         let cutoffSingleCol = 3;
-        let modsEmbed = new MessageEmbed();
+        let modsEmbed = new EmbedBuilder();
         if (modNames.length < cutoffSingleCol) {
             modsEmbed.addFields({
                 name: "**Lethal Company Mods**",
@@ -186,7 +188,7 @@ module.exports = {
         }
 
         // delete folder (keep zip)
-        try { fs.rmSync(modDest, { recursive: true }); }
+    try { fs.rmSync(modDest, { recursive: true }); }
         catch { console.log("Error deleting new folder."); }
 
         // update/create outputlog.txt

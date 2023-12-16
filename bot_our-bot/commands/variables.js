@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
+const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const slashOptions = require(appRoot.path + '/global/slashOptions.js');
 const utils = require(appRoot.path + '/global/utils.js');
@@ -60,7 +60,7 @@ module.exports = {
             else if (newAmount == null) {
                 interaction.reply({
                     embeds: [
-                        new MessageEmbed().addFields({
+                        new EmbedBuilder().addFields({
                             name: "**Variable**",
                             value: `${bulletPt + varName}: ${amounts[varName]}`,
                         })
@@ -94,7 +94,7 @@ module.exports = {
                 });
                 return;
             }
-            varsEmbed = new MessageEmbed()
+            varsEmbed = new EmbedBuilder()
             varsEmbed.addFields(
                 {
                     name: "**Variables**",

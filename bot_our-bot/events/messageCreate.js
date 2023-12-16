@@ -34,9 +34,7 @@ module.exports = {
         
         // handle goodthink
         else if (utils.searchForLine(message, utils.getLines("/global/lists/phrases_goodthink.txt"))) {
-            if (!utils.isComrade(client, message.member)) {
-                utils.makeComrade(client, message.guild.id, message.author.id);
-            }
+            utils.makeComrade(client, message.guild.id, message.author.id);
             message.react(utils.randItem(reactionAffirmations));
         }
     }

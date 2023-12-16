@@ -1,3 +1,12 @@
+function setPresence(client) {
+    client.user.setPresence({
+        activities: [{ 
+            type: 3,  // 1: playing, 2: listening, 3: watching
+            name: 'over us'
+        }]
+    });
+}
+
 module.exports = {
     name: "ready",
     once: true,
@@ -43,10 +52,9 @@ module.exports = {
             }
         }
         
-        client.user.setActivity({ type: 'WATCHING', name: 'over us' });
-        setInterval(() => {
-            client.user.setActivity({ type: 'WATCHING', name: 'over us' });
-        }, 900000);
+        setPresence(client);
+        setInterval(() => { setPresence(client); }, 900000);
+
         console.log("Our Bot Online");
     }
 }

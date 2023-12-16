@@ -1,9 +1,18 @@
 const appRoot = require('app-root-path');
-const { Client, Collection, Intents } = require(appRoot.path + '/node_modules/discord.js');
+const { Client, Collection, Intents, GatewayIntentBits } = require(appRoot.path + '/node_modules/discord.js');
 const config = require('./config.json');
 const fs = require('fs');
 
- const client = new Client({ intents: [131071, Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessageReactions,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.DirectMessages
+	]
+});
 
 // import functions
 client.functions = new Collection();

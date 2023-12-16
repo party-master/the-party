@@ -1,7 +1,7 @@
 const appRoot = require('app-root-path');
-const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
+const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 
-const uncomradeEmbed = new MessageEmbed();
+const uncomradeEmbed = new EmbedBuilder();
 // uncomradeEmbed.setThumbnail(globals.imgParty);
 uncomradeEmbed.addFields(
     {
