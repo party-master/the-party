@@ -215,7 +215,7 @@ function checkCreateGuildFiles(guildId) {
         },
         "courtroom.json": {
             latestVote: {
-                id: 00000,
+                id: 0o0000,
                 status: 'closed'
             },
             open: {},
@@ -223,7 +223,7 @@ function checkCreateGuildFiles(guildId) {
         },
         "votes.json": {
             latestVote: {
-                id: 00000,
+                id: 0o0000,
                 status: 'closed'
             },
             open: {},

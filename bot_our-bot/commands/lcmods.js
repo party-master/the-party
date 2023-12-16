@@ -64,10 +64,9 @@ module.exports = {
         await interaction.deferReply({ ephemeral: isHidden });
 
         // check/create output folder
-        outputDir = appRoot + "\\output\\LethalCompany\\";
         if (!fs.existsSync(outputDir)) {
             fs.mkdirSync(appRoot + "\\output\\");
-            fs.mkdirSync(outputDir);
+            fs.mkdirSync(appRoot + "\\output\\LethalCompany\\");
         }
 
         // check/get mod config
@@ -140,7 +139,7 @@ module.exports = {
         let copiedLog = modDest + "\\BepInEx\\LogOutput.log";
         if (fs.existsSync(copiedLog)) { fs.unlinkSync(copiedLog); }
 
-        // get mod names, version nums
+        // get mod names, version nums  // make one loop
         let pluginsFolder = modDest + "\\BepInEx\\plugins\\";
         let modNames = [];
         fs.readdirSync(pluginsFolder).forEach((pluginFolder) => {
@@ -173,14 +172,9 @@ module.exports = {
             await interaction.editReply({
                 embeds: [modsEmbed],
                 files: [modDest + ".zip"],
-                // files: outputDir + "Newfolder.zip",
                 ephemeral: isHidden == null ? false : isHidden,
             }).catch((err) => {
-                interaction.editReply({
-                    embeds: hasGuide ? [modsEmbed] : null,
-                    content: "Potentially rate limited. Try again later for zip file.",
-                    ephemeral: true
-                })
+                console.log("Error sending zip");
             });
         }
         catch (err) {

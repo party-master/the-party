@@ -23,7 +23,7 @@ module.exports = {
             },
             "courtroom.json": {
                 latestVote: {
-                    id: 00000,
+                    id: 0o0000,
                     status: 'closed'
                 },
                 open: {},
@@ -31,7 +31,7 @@ module.exports = {
             },
             "votes.json": {
                 latestVote: {
-                    id: 00000,
+                    id: 0o0000,
                     status: 'closed'
                 },
                 open: {},

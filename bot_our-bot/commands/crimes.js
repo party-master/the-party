@@ -9,6 +9,7 @@ let cutoffSingleCol = 12;
 let bulletPt = "› ";
 
 module.exports = {
+    name: "crimes",
     data: new SlashCommandBuilder()
         .setName('crimes')
         .setDescription('Get, add to, or remove from the list of crimes.')
