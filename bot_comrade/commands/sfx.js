@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton, EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const slashOptions = require(appRoot.path + '/global/slashOptions.js');
 const utils = require(appRoot.path + '/global/utils.js');
@@ -75,7 +75,7 @@ module.exports = {
                     }
                     if (counter <= rowLength * 5) {
                         interaction.reply({
-                            embeds: editEmbed ? [new MessageEmbed().setDescription(`**Sound Effects**`)] : [],
+                            embeds: editEmbed ? [new EmbedBuilder().setDescription(`**Sound Effects**`)] : [],
                             components: rows
                         });
                     }
@@ -154,7 +154,7 @@ module.exports = {
                 if (editEmbed && interaction.message.type == 'APPLICATION_COMMAND') {
                     interaction.message.edit({
                         embeds: [
-                            new MessageEmbed()
+                            new EmbedBuilder()
                                 .setDescription(`**Sound Effects**`)
                                 .setFooter({
                                     text:

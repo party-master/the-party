@@ -1,5 +1,5 @@
 const appRoot = require('app-root-path');
-const { MessageEmbed } = require(appRoot.path + '/node_modules/discord.js');
+const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const schedule = require('node-schedule');
 
@@ -261,7 +261,7 @@ class Vote {
         });
     }
     embed(client, guildId) {
-        const embedVote = new MessageEmbed();
+        const embedVote = new EmbedBuilder();
         switch (this.voteType) {
             case 'vote':
                 embedVote.setTitle("VOTE");
@@ -312,7 +312,7 @@ class Vote {
             case 'courtcase':
                 let guild = client.guilds.resolve(this.guildId);
                 const defendant = client.users.resolve(this.details['defendantId']);
-                embedVote.setTitle(`${guild.name} v. ` + defendant.username);
+                embedVote.setTitle(`${guild.name} v. ` + defendant.displayName);
                 embedVote.setFooter({ text: "Duration: " + this.durationStr + "\nCase #" + this.voteId, iconURL: guild.iconURL() });
                 embedVote.addFields(
                     {
