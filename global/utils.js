@@ -1,5 +1,6 @@
 const fs = require('fs');
 const appRoot = require('app-root-path');
+const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 
 if (!Array.prototype.last) {
     Array.prototype.last = function () {
@@ -173,39 +174,63 @@ function isTerrorist(client, member) {
 function makeComrade(client, guildId, userResolvable) {
     const guild = client.guilds.resolve(guildId);
     guild.members.fetch(userResolvable)
-        .then(member => {
+        .then(async member => {
             const roleComrades = guild.roles.cache.find(role => role.name === 'Comrades').id;
             const roleTerrorists = guild.roles.cache.find(role => role.name === 'Terrorists').id;
-            member.roles.remove(roleTerrorists);
-            member.roles.add(roleComrades);
+            await member.roles.remove(roleTerrorists);
+            await member.roles.add(roleComrades);
         })
         .catch(console.error);
 }
 
-function makeTerrorist(client, guildId, userResolvable) {
+function makeTerrorist(client, guildId, userResolvable, vote) {
     const guild = client.guilds.resolve(guildId);
     guild.members.fetch(userResolvable)
-        .then(member => {
+        .then(async member => {
             if (member.id == '716039200864206878') { return; }  // partymaster
             const roleComrades = guild.roles.cache.find(role => role.name === 'Comrades').id;
             const roleTerrorists = guild.roles.cache.find(role => role.name === 'Terrorists').id;
-            member.roles.remove(roleComrades);
-            member.roles.add(roleTerrorists);
+            await member.roles.remove(roleComrades);
+            await member.roles.add(roleTerrorists);
+            const channelGulag = member.guild.channels.cache.find(channel => lower(channel.name) === 'gulag');
+            if (channelGulag && member.voice.channel) {
+                try {
+                    await member.voice.setChannel(channelGulag);
+                }
+                catch {}
+            }
+            if (vote && vote.voteType == 'courtcase') {
+                let variables = getJSON(appRoot.path + '/guilds/' + guildId + '/variables.json');
+                let reeducation = guild.channels.cache.find(channel => channel.id === variables.amounts.REEDUCATION_CHANNEL);
+                let guiltyMsgEmbed = new EmbedBuilder();
+                guiltyMsgEmbed.addFields(
+                    {
+                        name: "You are a terrorist!",
+                        value: (
+                            `You\'ve been found guilty of **${lower(vote.details.charge)}** by ${guild.name}.`
+                            + (reeducation ? `\nSay \`I love The Party\` in ${reeducation} to become a Comrade.` : '')
+                        ),
+                        inline: false
+                    }
+                );
+                member.user.send({ embeds: [guiltyMsgEmbed] });
+            }
         })
         .catch(console.error);
 }
 
-function checkCreateGuildFiles(guildId) {
-    let guildPath = appRoot.path + '/guilds/' + guildId;
+function checkCreateGuildFiles(client, guildId) {
+    const guildPath = appRoot.path + '/guilds/' + guildId;
+    const guild = client.guilds.resolve(guildId);
     if (!fs.existsSync(guildPath)) {
         fs.mkdirSync(guildPath);
     }
     let files = {
         "variables.json": {
             "amounts": {
-                "min_votes": 1,
-                "default_vote_duration": 120000,
-                "min_edu_duration": 120000
+                "MIN_VOTES": "1",
+                "DEFAULT_VOTE_DURATION": "5000ms",
+                "REEDUCATION_CHANNEL": guild.systemChannelId
             },
             "crimes": [
                 "wrongthink",
@@ -228,7 +253,22 @@ function checkCreateGuildFiles(guildId) {
             },
             open: {},
             closed: {}
-        }
+        },
+        "users.json": {},
+        "guildConfig.json": {
+            roleComrades: {
+                name: false,
+                id: false
+            },
+            roleTerrorists: {
+                name: false,
+                id: false
+            },
+            roleAdmin: {
+                name: false,
+                id: false
+            }
+        },
     };
     for (i = 0; i < Object.keys(files).length; i++) {
         let file = Object.keys(files)[i];
@@ -239,6 +279,23 @@ function checkCreateGuildFiles(guildId) {
     }
 }
 
+function checkAppendMember(guildId, member) {
+    const usersPath = appRoot.path + '/guilds/' + guildId + "/users.json"
+    const users = getJSON(usersPath);
+    if (!users[member.id]) {
+        users[member.id] = {
+            id: member.id,
+            username: member.user.username,
+            globalName: member.user.globalName,
+        }
+    }
+    else {
+        users[member.id].username = member.user.username;
+        users[member.id].globalName = member.user.globalName;
+    }
+    setJSON(usersPath, users);
+}
+
 function normalizeStr(str) {
     return upper(str.toLowerCase());
 }
@@ -246,11 +303,10 @@ function normalizeStr(str) {
 function makeEmbedColumns(cutoffSingleCol, minCols, maxCols, a, title, embed) {
     let bulletPt = "› ";
     let numColumns = clamp(Math.ceil(a.length / cutoffSingleCol), minCols, maxCols);
-    let colLength = Math.ceil(a.length / numColumns);
     let counter = 0;
     let columns = Array();
     for (let i = 0; i < numColumns; i++) {
-        let thisColLength = colLength;
+        let thisColLength = Math.ceil((a.length - counter) / (numColumns - i));
         let strCol = "";
         for (let j = 0; j < a.length; j++) {
             if (!a[counter]) { break; }
@@ -314,13 +370,15 @@ module.exports = {
 
     makeComrade(client, guildId, userResolvable) { return makeComrade(client, guildId, userResolvable); },
 
-    makeTerrorist(client, guildId, userResolvable) { return makeTerrorist(client, guildId, userResolvable) },
+    makeTerrorist(client, guildId, userResolvable, vote) { return makeTerrorist(client, guildId, userResolvable, vote) },
 
-    checkCreateGuildFiles(guildId) { return checkCreateGuildFiles(guildId); },
+    checkCreateGuildFiles(client, guildId) { return checkCreateGuildFiles(client, guildId); },
 
     normalizeStr(str) { return normalizeStr(str); },
 
     makeEmbedColumns(cutoffSingleCol, minCols, maxCols, a, title, embed) {
         return makeEmbedColumns(cutoffSingleCol, minCols, maxCols, a, title, embed);
-    }
+    },
+
+    checkAppendMember(guildId, member) { return checkAppendMember(guildId, member); }
 }

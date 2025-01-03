@@ -7,6 +7,10 @@ module.exports = {
     name: 'messageCreate',
     once: false,
     execute(client, message) {
+        if (message.guild) {
+            utils.checkCreateGuildFiles(client, message.guild.id);
+            utils.checkAppendMember(message.guild.id, message.member);
+        }
 
         // handle self embeds
         if (message.embeds.length && message.author.id == client.user.id) {
@@ -16,16 +20,15 @@ module.exports = {
 
         if (message.author.bot) { return; }
 
-        // handle wrongthink
-
         /*
+        // handle wrongthink
         else if (utils.searchForLine(message, utils.getLines("/global/lists/phrases_wrongthink.txt"))) {
             const isComrade = utils.isComrade(client, message.member);
             if (isComrade) {
-                utils.makeTerrorist(client, message.guild.id, message.author.id);
+                utils.makeTerrorist(client, message.guild.id, message.author.id, null);
                 message.reply(message.author.toString() + " has been sent to re-education.");
             }
-            else if (!isComrade && !utils.isTerrorist(client, message.member)) {
+            else if (!isComrade && !utils.isTerrorist(client, message.member, null)) {
                 utils.makeTerrorist(client, message.guild.id, message.author.id);
                 message.reply(message.author.toString() + " is now a terrorist.");
             }

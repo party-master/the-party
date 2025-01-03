@@ -51,7 +51,7 @@ module.exports = {
                 let crimeElems = crimes.map(crime => bulletPt + utils.upper(crime)).sort();
                 let crimesStr = crimeElems.join("\n");
                 crimesEmbed.addFields({
-                    name: "**Crimes**",
+                    name: "Crimes",
                     value: crimesStr,
                     inline: true
                 });
@@ -75,7 +75,7 @@ module.exports = {
                     }
                     crimesEmbed.addFields(
                         {
-                            name: i == 0 ? "**Crimes**" : '‍‍',
+                            name: i == 0 ? "Crimes" : '‍‍',
                             value: crimeStrCol,
                             inline: true
                         },

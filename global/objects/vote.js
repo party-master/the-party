@@ -1,4 +1,5 @@
 const appRoot = require('app-root-path');
+const { InteractionCollector, ThreadMemberFlagsBitField } = require('discord.js');
 const { EmbedBuilder } = require(appRoot.path + '/node_modules/discord.js');
 const utils = require(appRoot.path + '/global/utils.js');
 const schedule = require('node-schedule');
@@ -9,9 +10,9 @@ class Vote {
         const { commandName, options } = interaction;
         const subject = options.getString('subject');
         const reason = options.getString('reason');
-        if (subject != null && subject.length > 1000 || reason != null && reason.length) {
+        if (subject != null && subject.length > 500 || reason != null && reason.length > 500) {
             interaction.reply({
-                content: "\'Subject\' and \'Reason\' fields must be 1000 characters or less.",
+                content: "\'Subject\' and \'Reason\' fields must be 500 characters or less.",
                 ephemeral: true
             });
             return;
@@ -97,9 +98,20 @@ class Vote {
                 let varName = options.getString('variable');
                 this.details = {
                     variable: varName,
-                    value: options.getNumber('set'),
+                    value: options.getNumber('value'),
                     ogValue: amounts[varName],
                     failReason: false
+                }
+                if (varName == 'REEDUCATION_CHANNEL') {
+                    this.details.value = options.getChannel('channel').id;
+                    let channel = options.getChannel('channel');
+                    if (!channel) {
+                        interaction.reply({
+                            content: "Channel not found.",
+                            ephemeral: true
+                        });
+                        return;
+                    }
                 }
                 if (varName == 'DEFAULT_VOTE_DURATION') {
                     this.details.value += "ms";
@@ -202,7 +214,7 @@ class Vote {
                     if (this.votesUp > this.votesDown && this.votesUp >= this.minVotes) {
                         this.passed = true;
                         this.details['verdict'] = 'Guilty';
-                        utils.makeTerrorist(client, msg.guild.id, this.details['defendantId']);
+                        utils.makeTerrorist(client, msg.guild.id, this.details['defendantId'], this);
                     }
                     else {
                         this.details['verdict'] = 'Not Guilty';
@@ -262,6 +274,7 @@ class Vote {
     }
     embed(client, guildId) {
         const embedVote = new EmbedBuilder();
+        let guild;
         switch (this.voteType) {
             case 'vote':
                 embedVote.setTitle("VOTE");
@@ -282,15 +295,31 @@ class Vote {
                 return embedVote;
             case 'variable':
                 embedVote.setTitle("VOTE");
-                embedVote.addFields(
-                    {
-                        name: "Set Variable:",
-                        value: `${this.details['variable']}`
-                            + "\nFrom " + this.details['ogValue']
-                            + " to " + this.details['value'],
-                        inline: false
-                    }
-                );
+                if (this.details.variable == 'REEDUCATION_CHANNEL') {
+                    guild = client.guilds.resolve(this.guildId);
+                    let newChannel = guild.channels.cache.find(channel => channel.id === this.details.value);
+                    let ogChannel = guild.channels.cache.find(channel => channel.id === this.details.ogValue);
+                    embedVote.addFields(
+                        {
+                            name: "Set Variable:",
+                            value: `${this.details['variable']}`
+                                + (ogChannel ? "\nFrom " + ogChannel.toString() : '')
+                                + " to " + newChannel.toString(),
+                            inline: false
+                        }
+                    );
+                }
+                else {
+                    embedVote.addFields(
+                        {
+                            name: "Set Variable:",
+                            value: `${this.details['variable']}`
+                                + "\nFrom " + this.details['ogValue']
+                                + " to " + this.details['value'],
+                            inline: false
+                        }
+                    );
+                }
                 if (this.status == 'open') {
                     embedVote.setFooter({ text: "Duration: " + this.durationStr });
                     return embedVote;
@@ -310,7 +339,7 @@ class Vote {
                 }
                 break;
             case 'courtcase':
-                let guild = client.guilds.resolve(this.guildId);
+                guild = client.guilds.resolve(this.guildId);
                 const defendant = client.users.resolve(this.details['defendantId']);
                 embedVote.setTitle(`${guild.name} v. ` + defendant.displayName);
                 embedVote.setFooter({ text: "Duration: " + this.durationStr + "\nCase #" + this.voteId, iconURL: guild.iconURL() });
@@ -333,7 +362,7 @@ class Vote {
                             {
                                 name: "Charge:",
                                 value: this.details['charge'],
-                                inline: this.details['charge'].length < 40 && this.details['reason'].length > 60 ? true : false
+                                inline: this.details['reason'].length > 60 ? true : false
                             },
                             {
                                 name: "Reason:",
@@ -357,7 +386,7 @@ class Vote {
                     embedVote.addFields({
                         name: "Charge:",
                         value: this.details['charge'],
-                        inline: this.details['charge'].length < 40 && this.details['reason'].length > 60 ? true : false
+                        inline: this.details['reason'].length > 60 ? true : false
                     });
                     if (this.details['reason'] && this.details['reason'].replaceAll(" ", "") != "") {
                         embedVote.addFields({

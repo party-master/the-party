@@ -19,11 +19,11 @@ module.exports = {
                 .setAutocomplete(true))
         .addNumberOption((option) =>
             option
-                .setName('set')
+                .setName('value')
                 .setDescription('A new integer value')
                 .setRequired(false))
         .addNumberOption((option) => slashOptions.duration(option, false))
-        .addBooleanOption((option) => slashOptions.hidden(option, false)),
+        .addChannelOption((option) => slashOptions.channel(option, false)),
     autocomplete(interaction) {
         const { options } = interaction;
         const focusedOption = options.getFocused(true);
@@ -39,9 +39,10 @@ module.exports = {
         const variablesPath = appRoot.path + '/guilds/' + interaction.guild.id + '/variables.json';
         const amounts = utils.getJSON(variablesPath)['amounts'];
         let varName = options.getString('variable');
-        let isHidden = options.getBoolean('hidden');
-        let newAmount = options.getNumber('set');
+        let newAmount = options.getNumber('value');
+        let newChannel = options.getChannel('channel');
         if (varName != null) {
+            let isReeducation = varName == 'REEDUCATION_CHANNEL';
             let varExists = false;
             for (let variable in amounts) {
                 if (varName.toUpperCase() == variable) {
@@ -57,19 +58,27 @@ module.exports = {
                 });
                 return;
             }
-            else if (newAmount == null) {
+            else if (!isReeducation && !newAmount || isReeducation && !newChannel) {
+                let amt;
+                if (isReeducation) {
+                    amt = interaction.guild.channels.cache.find(channel => channel.id === amounts[varName]);
+                    amt = amt ? amt : '[undefined]';
+                }
+                else {
+                    amt = amounts[varName];
+                }
                 interaction.reply({
                     embeds: [
                         new EmbedBuilder().addFields({
-                            name: "**Variable**",
-                            value: `${bulletPt + varName}: ${amounts[varName]}`,
+                            name: "Variable",
+                            value: `${bulletPt + varName}: ${amt}`,
                         })
                     ],
-                    ephemeral: isHidden == null ? false : isHidden
+                    ephemeral: true
                 });
                 return;
             }
-            else if (newAmount != null) {
+            else if (!isReeducation && newAmount) {
                 if (varName == 'MIN_VOTES' && newAmount > 0) { newAmount = 0; }
                 if (varName == 'DEFAULT_VOTE_DURATION' && newAmount < 20000) {
                     interaction.reply({
@@ -84,6 +93,21 @@ module.exports = {
                 vote.details['value'] = newAmount;
                 return;
             }
+            else if (isReeducation && newChannel) {
+                if (newChannel.type != 0) {
+                    interaction.reply({
+                        content: "The re-education channel must be a text channel.",
+                        ephemeral: true
+                    });
+                }
+                else {
+                    let vote = Vote.new();
+                    vote.open(client, 'variable', interaction);
+                    vote.details['variable'] = varName;
+                    vote.details['value'] = newChannel.id;
+                }
+                return;
+            }
 
         }
         else if (varName == null) {
@@ -94,19 +118,33 @@ module.exports = {
                 });
                 return;
             }
-            varsEmbed = new EmbedBuilder()
+            varsEmbed = new EmbedBuilder();
+            let varStr = [];
+            for (let variable in amounts) {
+                if (variable == 'REEDUCATION_CHANNEL') {
+                    let channel = interaction.guild.channels.cache.find(channel => channel.id === amounts[variable]);
+                    if (channel) {
+                        varStr.push(bulletPt + variable + ": " + channel.toString() + "\n");
+                    }
+                    else {
+                        varStr.push(bulletPt + variable + ": [undefined]\n");
+                    }
+                }
+                else {
+                    varStr.push(bulletPt + variable + ": " + amounts[variable] + "\n");
+                }
+            }
+            varStr = varStr.sort().toString().replaceAll(",", "");
             varsEmbed.addFields(
                 {
-                    name: "**Variables**",
-                    value: Object.keys(amounts).map(key =>
-                        bulletPt + key + ": " + amounts[key] + "\n"
-                    ).sort().toString().replaceAll(",", ""),
+                    name: "Variables",
+                    value: varStr,
                     inline: false
                 }
             );
             interaction.reply({
                 embeds: [varsEmbed],
-                ephemeral: isHidden == null ? false : isHidden
+                ephemeral: true
             });
             return;
         }

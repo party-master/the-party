@@ -5,8 +5,9 @@ module.exports = {
     name: 'interactionCreate',
     once: false,
     execute(client, interaction) {
-        utils.checkCreateGuildFiles(interaction.guild.id);
         const { commandName } = interaction;
+        utils.checkCreateGuildFiles(client, interaction.guild.id);
+        utils.checkAppendMember(interaction.guild.id, interaction.member);
         
         // handle autocomplete commands
         if (interaction.isAutocomplete()) {

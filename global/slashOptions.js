@@ -33,6 +33,13 @@ module.exports = {
             .setRequired(isRequired);
     },
 
+    channel(option, isRequired) {
+        return option
+            .setName('channel')
+            .setDescription('Get a channel')
+            .setRequired(isRequired);
+    },
+
     getCommandChoices(client, input) {
         let commandFiles = fs.readdirSync(client.cmdsPath).filter(file => file.endsWith('.js'));
         let choices = Array();
