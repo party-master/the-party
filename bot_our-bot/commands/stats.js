@@ -11,13 +11,13 @@ function embedUserStats(interaction, user, stats, isHidden) {
     let crimeNames = Object.keys(stats.crimes);
     crimeNames.sort();
     if (crimeNames != 0) {
-        let crimesBulleted = Array();
+        let crimesInfo = Array();
         for (let i = 0; i < crimeNames.length; i++) {
-            crimesBulleted.push(crimeNames[i] + ": " + stats.crimes[crimeNames[i]])
+            crimesInfo.push(crimeNames[i] + ": " + stats.crimes[crimeNames[i]])
         }
         let numCrimes = Object.values(stats.crimes).reduce((a, b) => a + b, 0);
         let title = numCrimes + (numCrimes == 1 ? ' Crime:' : ' Crimes:');
-        utils.makeEmbedColumns(6, 1, 3, crimesBulleted, title, statsEmbed);
+        utils.makeEmbedColumns(6, 1, 3, crimesInfo, title, statsEmbed);
     }
 
     let description = "";
