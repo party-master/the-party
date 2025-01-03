@@ -58,7 +58,7 @@ module.exports = {
                 });
                 return;
             }
-            else if (!isReeducation && !newAmount || isReeducation && !newChannel) {
+            else if (!isReeducation && newAmount == null || isReeducation && !newChannel) {
                 let amt;
                 if (isReeducation) {
                     amt = interaction.guild.channels.cache.find(channel => channel.id === amounts[varName]);
@@ -78,7 +78,7 @@ module.exports = {
                 });
                 return;
             }
-            else if (!isReeducation && newAmount) {
+            else if (!isReeducation && newAmount != null) {
                 if (varName == 'MIN_VOTES' && newAmount > 0) { newAmount = 0; }
                 if (varName == 'DEFAULT_VOTE_DURATION' && newAmount < 20000) {
                     interaction.reply({
