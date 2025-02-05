@@ -213,7 +213,12 @@ function makeTerrorist(client, guildId, userResolvable, vote) {
                         inline: false
                     }
                 );
-                member.user.send({ embeds: [guiltyMsgEmbed] });
+                try { 
+                    member.user.send({ embeds: [guiltyMsgEmbed] });
+                }
+                catch (error) {
+                    console.log(`Cannot send messages to ${member.displayName}`);
+                }
             }
         })
         .catch(console.error);
