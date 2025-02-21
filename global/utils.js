@@ -214,7 +214,7 @@ function makeTerrorist(client, guildId, userResolvable, vote) {
                     }
                 );
                 try { 
-                    member.user.send({ embeds: [guiltyMsgEmbed] });
+                    // member.user.send({ embeds: [guiltyMsgEmbed] });
                 }
                 catch (error) {
                     console.log(`Cannot send messages to ${member.displayName}`);
