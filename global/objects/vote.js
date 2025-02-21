@@ -115,7 +115,6 @@ class Vote {
                 }
                 if (varName == 'DEFAULT_VOTE_DURATION') {
                     this.details.value += "ms";
-                    this.details.ogValue += "ms";
                 }
                 if (this.details.value === this.details.ogValue) {
                     interaction.reply({
