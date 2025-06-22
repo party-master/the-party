@@ -353,7 +353,7 @@ module.exports = {
 
     getJSON(path) { return getJSON(path); },
 
-    setJSON(d, path) { return setJSON(d, path); },
+    setJSON(path, d) { return setJSON(path, d); },
 
     msToTimecode(duration) { return msToTimecode(duration); },
 

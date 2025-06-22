@@ -125,7 +125,7 @@ class Vote {
                 }
                 break;
             case 'addcrime':
-                let newCrime = options.getString('add');
+                let newCrime = options.getString('add').replace(/[^a-zA-Z ']/g, "");  // removes special characters
                 if (newCrime.length > 20) {
                     interaction.reply({
                         content: "Crime names must be 20 characters or less.",
